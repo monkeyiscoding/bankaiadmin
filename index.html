@@ -1,57 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Panel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/3b2cf0bb84.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="[path/to/css/feathericon.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://kit.fontawesome.com/3b2cf0bb84.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="[path/to/css/feathericon.min.css" />
     <script src="https://unpkg.com/feather-icons"></script>
-    <link rel="stylesheet" href="style/style.css">
-
-</head>
-<body>
+    <link rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
     <div class="main-div">
-        <div class="nav-bar">
-            <h2>Bankai Admin</h2>
-            <hr>
-            <a href=""></a>
-            <div id="home" class="menu-option-selected">
-                <i data-feather="home"></i>
-                <h6 class="menu-title-selected">Home</h6>
-            </div>
-        
-
-            <div id="top-trending" class="menu-option">
-                <i data-feather="activity"></i>
-                <h6 class="menu-title">Top Trending</h6>
-            </div>
-
-            
-            <div id="top-trending" class="menu-option">
-                <i data-feather="dollar-sign"></i>
-                <h6 class="menu-title">Free Anime</h6>
-            </div>
-
-            <div id="top-trending" class="menu-option">
-                <i data-feather="user"></i>
-                <h6 class="menu-title">Users</h6>
-            </div>
-
-
-        
+      <div class="nav-bar">
+        <h2>Bankai Admin</h2>
+        <hr />
+        <a href=""></a>
+        <div id="home" class="menu-option-selected">
+          <i data-feather="home"></i>
+          <h6 class="menu-title-selected">Home</h6>
         </div>
 
-        <div class="content-div">
-            <div class="bar">
-
-            </div>
+        <div id="top-trending" class="menu-option">
+          <i data-feather="activity"></i>
+          <h6 class="menu-title">Top Trending</h6>
         </div>
+
+        <div id="top-trending" class="menu-option">
+          <i data-feather="dollar-sign"></i>
+          <h6 class="menu-title">Free Anime</h6>
+        </div>
+
+        <div id="top-trending" class="menu-option">
+          <i data-feather="user"></i>
+          <h6 class="menu-title">Users</h6>
+        </div>
+      </div>
+
+      <div class="content-div">
+        <div class="bar">
+          <i style="margin-left: 20px" data-feather="search"></i>
+          <input class="search-view" type="text" placeholder="Search Anime" />
+
+          <button onclick="addMovie()" class="add-button">
+            <i data-feather="plus"></i>
+            Movie
+          </button>
+
+          <button onclick="addSeries()" class="add-button">
+            <i data-feather="plus"></i>
+            Series
+          </button>
+        </div>
+
+        <div class="content-div-2">
+          <div class="all-anime-page">
+            <h3>Home</h3>
+            <div id="movie-list" class="all-anime-list"></div>
+          </div>
+
+          <div class="analyz">
+            <div class="data-div">
+              <h5 style="font-weight: lighter">Income</h5>
+              <h2>Rs. 207890.00</h2>
+              <div class="linear-1">
+                <div style="border: 1px solid red" class="linear-card">
+                  <i data-feather="user"></i>
+                  <br />
+                  <h4 id="premium-users">3908</h4>
+                  <h6 style="font-weight: lighter">
+                    Premium <br />
+                    Users
+                  </h6>
+                </div>
+
+                <div class="linear-card">
+                  <i data-feather="user"></i>
+                  <br />
+                  <h4 id="total-users">3908</h4>
+                  <h6 style="font-weight: lighter">
+                    Total <br />
+                    Users
+                  </h6>
+                </div>
+              </div>
+
+              <div class="linear-1">
+                <div style="border: 1px solid green" class="linear-card">
+                  <i data-feather="film"></i>
+                  <br />
+                  <h4 id="total-users">3908</h4>
+                  <h6 style="font-weight: lighter">
+                    Total <br />
+                    Series
+                  </h6>
+                </div>
+
+                <div style="border: 1px solid yellow" class="linear-card">
+                  <i data-feather="film"></i>
+                  <br />
+                  <h4 id="total-users">3908</h4>
+                  <h6 style="font-weight: lighter">
+                    Total <br />
+                    Movie
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div id="movie-dialog" class="dialog">
+      <div class="add-movie-div">
+        <div onclick="closeMovie()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <br />
+        <br />
+        <h1 style="padding-left: 63px">ADD MOVIE</h1>
+
+        <div class="images-div">
+          <div class="poster-div">
+            <div id="poster-input-div">
+              <i id="icon-poster" class="fa-solid fa-plus fa-2x"></i>
+              <h4 class="img-title" id="title-poster">Poster image</h4>
+
+              <div id="display-image-poster" class="image-poster"></div>
+
+              <a href="#">
+                <input
+                  title=""
+                  class="input-file"
+                  style=""
+                  type="file"
+                  id="image-input-poster"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </a>
+            </div>
+          </div>
+
+          <div class="thumbnail-div">
+            <div id="thumbnail-input-div">
+              <i id="icon-thumbnail" class="fa-solid fa-plus fa-2x"></i>
+              <h4 class="img-title" id="title-thumbnail">Poster image</h4>
+
+              <div id="display-image-thumbnail" class="image-thumbnail"></div>
+
+              <a href="#">
+                <input
+                  title=""
+                  class="input-file"
+                  style=""
+                  type="file"
+                  id="image-input-thumbnail"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <input
+          id="title"
+          class="classic-input"
+          type="text"
+          placeholder="Title"
+        />
+        <input
+          id="des"
+          class="classic-input"
+          type="text"
+          placeholder="Description"
+        />
+        <input
+          id="story"
+          class="classic-input"
+          type="text"
+          placeholder="Story Line"
+        />
+        <input id="cast" class="classic-input" type="text" placeholder="Cast" />
+
+        <select class="classic-input drop-down" name="cars" id="language">
+          <option value="English, Japanese">English, Japanese</option>
+          <option value="Japanese">Japanese</option>
+          <option value="English">English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi English Japanese">
+            Hindi, English, Japanese
+          </option>
+          <option value="Hindi English">Hindi, English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+        </select>
+        <br />
+        <br />
+        <h4 id="trailerText">Chose Trailer</h4>
+        <input id="chose-trailer" type="file" />
+        <br />
+        <br />
+        <br />
+        <h4 id="movieText">Chose Movie File</h4>
+        <input id="chose-movie" type="file" />
+        <br />
+        <br />
+        <h5 class="error-text">Upload poster image</h5>
+        <button
+          onclick="uploadMovie()"
+          style="
+            width: 60%;
+            margin-right: 20%;
+            height: 60px;
+            border-radius: 5px;
+          "
+          class="add-button"
+        >
+          Upload Movie
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
+    </div>
+
+    <div id="series-dialog" class="dialog">
+      <div class="add-series-div"></div>
+    </div>
+
+    <div id="uploading-dialog-progress" class="dialog">
+      <div class="uploading-content">
+        <h3 style="font-weight: lighter" id="Uploading-text">
+          Uploading Movie
+        </h3>
+        <h2 style="margin-left: 10px" id="Uploading-percentage">0.00%</h2>
+      </div>
+    </div>
+
     <script>
-        feather.replace()
+      feather.replace();
     </script>
-</body>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="java/index.js" charset="utf-8"></script>
+  </body>
 </html>

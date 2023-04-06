@@ -1,88 +1,426 @@
-:root{
-    --secondry-color: #141414;
+:root {
+  --secondry-color: #141414;
+  --primary-color: #da0000;
 }
 
-
-
-body{
-    background-color: var(--secondry-color);
-    color: white;
-    font-family: Bahnschrift;
+body {
+  background-color: var(--secondry-color);
+  color: white;
+  font-family: Bahnschrift;
 }
-
-
 
 /* classes */
-.main-div{
-    width: 100%;
-    display: flex;
-
-
+.main-div {
+  width: 100%;
+  display: flex;
 }
 
-.nav-bar{
-    width: 300px;
-    height: 100vh;
-    background-color: var(--secondry-color);
-    padding-left: 20px;
-    box-shadow: 10px 10px 30px black;
-    padding-top: 30px;
+.nav-bar {
+  width: 300px;
+  height: 100vh;
+  background-color: var(--secondry-color);
+  padding-left: 20px;
+  box-shadow: 10px 10px 30px black;
+  padding-top: 30px;
+  position: fixed;
 }
 
-.menu-option-selected{
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    background-color: rgba(255, 255, 255, 0.089);
-    border-radius: 10px 0px 0px 10px;
-    padding-left: 20px;
+.menu-option-selected {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.089);
+  border-radius: 10px 0px 0px 10px;
+  padding-left: 20px;
 }
 
-.menu-option{
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    border-radius: 10px 0px 0px 10px;
-    padding-left: 20px;
-    transition: 500ms;
+.menu-option {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 10px 0px 0px 10px;
+  padding-left: 20px;
+  transition: 500ms;
 }
 
-.menu-option:hover{
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    background-color: rgba(255, 255, 255, 0.027);
-    border-radius: 10px 0px 0px 10px;
-    padding-left: 20px;
+.menu-option:hover {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.027);
+  border-radius: 10px 0px 0px 10px;
+  padding-left: 20px;
 }
-.menu-title{
-    margin-left: 10px;
-    margin-top: 10px;
-    font-weight: lighter;
-}
-
-.menu-title-selected{
-    margin-left: 10px;
-    margin-top: 10px;
+.menu-title {
+  margin-left: 10px;
+  margin-top: 10px;
+  font-weight: lighter;
 }
 
-.bar{
-    width: 50%;
-    height: 70px;
-    background-color: var(--secondry-color);
-    margin: 20px;
-    box-shadow: 5px 5px 10px black;
-    border-radius: 10px;
+.menu-title-selected {
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
-.content-div{
-    height: 100vh;
-    width: 100%;
-    
+.bar {
+  width: 70%;
+  height: 70px;
+  background-color: var(--secondry-color);
+  margin: 20px;
+  box-shadow: 5px 5px 10px black;
+  border-radius: 10px;
+  position: fixed;
+  left: 300px;
+}
+
+.content-div {
+  height: 100vh;
+  width: 100%;
+}
+
+.search-view {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  margin: 20px 0px 0px 20px;
+  color: white;
+}
+
+.search-view:focus {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  margin: 20px 0px 0px 20px;
+  color: white;
+  outline: none;
+}
+
+.add-button {
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 100px;
+  color: white;
+  justify-self: right;
+  padding: 10px 20px;
+  float: right;
+  margin-top: 12px;
+  margin-right: 10px;
+}
+
+.content-div-2 {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.all-anime-page {
+  padding: 30px;
+  width: 55%;
+  margin-top: 100px;
+  margin-left: 300px;
+}
+
+.analyz {
+  width: 30%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  right: 0px;
+  top: 130px;
+}
+
+.all-anime-list {
+  display: flex;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.data-div {
+  width: 70%;
+  height: auto;
+  margin: 20px;
+  box-shadow: 0px 0px 10px black;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+.linear-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.linear-card {
+  width: 30%;
+  height: 150px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border: 1px solid wheat;
+  box-shadow: 0px 0px 15px black;
+  border-radius: 10px;
+}
+
+/* dialog */
+
+.dialog {
+  /* Hidden by default */
+  display: none;
+  position: fixed;
+  /* Stay in place */
+  z-index: 10;
+  /* Sit on top */
+  padding-top: 50px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  padding-left: 100px;
+  width: 100%;
+  padding-right: 100px;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.dialog {
+  /* Hidden by default */
+  display: none;
+  position: fixed;
+  /* Stay in place */
+  z-index: 10;
+  /* Sit on top */
+  padding-top: 50px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  padding-left: 100px;
+  width: 100%;
+  padding-right: 100px;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+.add-movie-div {
+  width: 70%;
+  height: auto;
+  background-color: var(--secondry-color);
+  margin-left: 15%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.images-div {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+}
+
+.poster-div {
+  width: 20%;
+  height: 300px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border: 1px solid wheat;
+  box-shadow: 0px 0px 15px black;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.thumbnail-div {
+  width: 35%;
+  height: 300px;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border: 1px solid wheat;
+  box-shadow: 0px 0px 15px black;
+  border-radius: 10px;
+}
+
+/* input decoration */
+
+input[type="file"] {
+  border: 2px solid white;
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 15px;
+  width: 150px;
+  margin: 0;
+  padding: 9px;
+  padding-left: 30px;
+  box-shadow: 1px 1px 2px #ebebeb;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  position: relative;
+  background-color: var(--primary-color);
+  -webkit-appearance: none;
+  z-index: 2;
+}
+
+input[type="file"]:after {
+  background-color: white;
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 11;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  background: white;
+  color: OrangeRed;
+  font: inherit;
+  padding: 0;
+  position: relative;
+  border: none;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+  -webkit-appearance: none;
+}
+
+.img-title {
+  font-weight: lighter;
+}
+
+.image-poster {
+  width: 50%;
+  height: 160px;
+  background-size: 100% 100%;
+  display: none;
+  box-shadow: 2px 3px 10px black;
+  border-radius: 5px;
+  margin-left: 25%;
+  margin-bottom: 20px;
+}
+
+.image-thumbnail {
+  width: 80%;
+  height: 160px;
+  background-size: 100% 100%;
+  display: none;
+  box-shadow: 2px 3px 10px black;
+  border-radius: 5px;
+  margin-left: 10%;
+  margin-bottom: 20px;
+}
+
+.close-dialog {
+  margin-bottom: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  float: right;
+  top: 0px;
+  display: inline-block;
+}
+
+#title-poster {
+  margin-bottom: 70px;
+}
+
+#icon-poster {
+  margin-top: 40px;
+}
+
+#title-thumbnail {
+  margin-bottom: 70px;
+}
+
+#icon-thumbnail {
+  margin-top: 40px;
+}
+
+.classic-input {
+  width: 58%;
+  background-color: transparent;
+  height: 50px;
+  margin-top: 20px;
+  padding-left: 20px;
+  color: white;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.drop-down {
+  padding-right: 20px;
+  color: white;
+  background-color: var(--secondry-color);
+}
+
+.error-text {
+  color: var(--primary-color);
+  display: none;
+}
+
+.uploading-content {
+  width: 300px;
+  height: auto;
+  background-color: var(--secondry-color);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 300px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.anime-card {
+  width: 100px;
+  height: 140px;
+  box-shadow: 5px 5px 10px black;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.anime-poster {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
 }
