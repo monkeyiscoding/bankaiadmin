@@ -64,8 +64,23 @@
 
         <div class="content-div-2">
           <div class="all-anime-page">
-            <h3>Home</h3>
-            <div id="movie-list" class="all-anime-list"></div>
+            <div class="tab-div">
+              <h3 style="margin-top: 7px">Home</h3>
+
+              <a href="#" class="fill-div"
+                ><div onclick="selectedSeries()" id="se" class="tab-selected">
+                  <h6 style="font-weight: lighter">Series</h6>
+                </div></a
+              >
+
+              <a href="#" class="fill-div">
+                <div id="mo" onclick="selectedMovie()" class="tab">
+                  <h6 style="font-weight: lighter">Movies</h6>
+                </div></a
+              >
+            </div>
+
+            <div id="movie-list" class="all-anime-list row"></div>
           </div>
 
           <div class="analyz">
@@ -154,7 +169,7 @@
           <div class="thumbnail-div">
             <div id="thumbnail-input-div">
               <i id="icon-thumbnail" class="fa-solid fa-plus fa-2x"></i>
-              <h4 class="img-title" id="title-thumbnail">Poster image</h4>
+              <h4 class="img-title" id="title-thumbnail">Thumbnail image</h4>
 
               <div id="display-image-thumbnail" class="image-thumbnail"></div>
 
@@ -234,14 +249,130 @@
       </div>
     </div>
 
+    <!-- web -->
+
     <div id="series-dialog" class="dialog">
-      <div class="add-series-div"></div>
+      <div class="add-movie-div">
+        <div onclick="closeSeries()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <br />
+        <br />
+        <h1 style="padding-left: 63px">ADD SERIES</h1>
+
+        <div class="images-div">
+          <div class="poster-div">
+            <div id="poster-input-div-web">
+              <i id="icon-poster-web" class="fa-solid fa-plus fa-2x"></i>
+              <h4 class="img-title" id="title-poster-web">Poster image</h4>
+
+              <div id="display-image-poster-web" class="image-poster"></div>
+
+              <a href="#">
+                <input
+                  title=""
+                  class="input-file"
+                  style=""
+                  type="file"
+                  id="image-input-poster-web"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </a>
+            </div>
+          </div>
+
+          <div class="thumbnail-div">
+            <div id="thumbnail-input-div-web">
+              <i id="icon-thumbnail-web" class="fa-solid fa-plus fa-2x"></i>
+              <h4 class="img-title" id="title-thumbnail-web">
+                Thumbnail image
+              </h4>
+
+              <div
+                id="display-image-thumbnail-web"
+                class="image-thumbnail"
+              ></div>
+
+              <a href="#">
+                <input
+                  title=""
+                  class="input-file"
+                  style=""
+                  type="file"
+                  id="image-input-thumbnail-web"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <input
+          id="web-title"
+          class="classic-input"
+          type="text"
+          placeholder="Title"
+        />
+        <input
+          id="web-des"
+          class="classic-input"
+          type="text"
+          placeholder="Description"
+        />
+        <input
+          id="web-story"
+          class="classic-input"
+          type="text"
+          placeholder="Story Line"
+        />
+        <input
+          id="web-cast"
+          class="classic-input"
+          type="text"
+          placeholder="Cast"
+        />
+
+        <select class="classic-input drop-down" name="cars" id="web-language">
+          <option value="English, Japanese">English, Japanese</option>
+          <option value="Japanese">Japanese</option>
+          <option value="English">English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi English Japanese">
+            Hindi, English, Japanese
+          </option>
+          <option value="Hindi English">Hindi, English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+        </select>
+        <br />
+        <br />
+        <h4 id="trailerTextWeb">Chose Trailer</h4>
+        <input id="chose-trailer-web" type="file" />
+        <br />
+        <br />
+        <h5 class="error-text">Upload poster image</h5>
+        <button
+          onclick="uploadSeries()"
+          style="
+            width: 60%;
+            margin-right: 20%;
+            height: 60px;
+            border-radius: 5px;
+          "
+          class="add-button"
+        >
+          Upload Series
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
     </div>
 
     <div id="uploading-dialog-progress" class="dialog">
       <div class="uploading-content">
         <h3 style="font-weight: lighter" id="Uploading-text">
-          Uploading Movie
+          Uploading Series
         </h3>
         <h2 style="margin-left: 10px" id="Uploading-percentage">0.00%</h2>
       </div>
