@@ -22,8 +22,20 @@ var thumbnail = false;
 var trailerCheck = false;
 var movie = false;
 var posterWeb = false;
+var posterWebUpdate = false;
 var thumbnailWeb = false;
+var thumbnailWebUpdate = false;
 var trailerCheckWeb = false;
+var trailerCheckWebUpdate = false;
+var moviePosterUpdate = false;
+var movieThumbnailUpdate = false;
+var oldMovieKey = "";
+var seasonKey = "";
+var seasonCount = 1;
+var episodeCount = 1;
+var seasKey = "";
+var webKey = "";
+var sTitle = "";
 
 function addMovie() {
   var dialog = $("#movie-dialog");
@@ -73,23 +85,65 @@ image_input_thumbnail.addEventListener("change", function () {
   reader.readAsDataURL(this.files[0]);
 });
 
-const trailer = document.querySelector("#chose-trailer");
+const image_input_poster_update = document.querySelector(
+  "#image-input-poster-update"
+);
 
-trailer.addEventListener("change", function () {
-  var nameText = $("#trailerText");
-  nameText.html(this.value);
+image_input_poster_update.addEventListener("change", function () {
   const reader = new FileReader();
-  trailerCheck = true;
+  reader.addEventListener("load", () => {
+    $("#icon-poster-update").css("display", "none");
+    $("#title-poster-update").css("display", "none");
+    $("#poster-input-div-update").css("padding-top", "20px");
+    $("#display-image-poster-update").css("display", "block");
+
+    const uploaded_image = reader.result;
+    document.querySelector(
+      "#display-image-poster-update"
+    ).style.backgroundImage = `url(${uploaded_image})`;
+    moviePosterUpdate = true;
+  });
+  reader.readAsDataURL(this.files[0]);
 });
 
-const movieChose = document.querySelector("#chose-movie");
+const image_input_thumbnail_update = document.querySelector(
+  "#image-input-thumbnail-update"
+);
 
-movieChose.addEventListener("change", function () {
-  var nameText = $("#movieText");
-  nameText.html(this.value);
+image_input_thumbnail_update.addEventListener("change", function () {
   const reader = new FileReader();
-  movie = true;
+  reader.addEventListener("load", () => {
+    $("#icon-thumbnail-update").css("display", "none");
+    $("#title-thumbnail-update").css("display", "none");
+    $("#thumbnail-input-div-update").css("padding-top", "20px");
+    $("#display-image-thumbnail-update").css("display", "block");
+
+    const uploaded_image = reader.result;
+    document.querySelector(
+      "#display-image-thumbnail-update"
+    ).style.backgroundImage = `url(${uploaded_image})`;
+    movieThumbnailUpdate = true;
+  });
+  reader.readAsDataURL(this.files[0]);
 });
+
+// const trailer = document.querySelector("#chose-trailer");
+
+// trailer.addEventListener("change", function () {
+//   var nameText = $("#trailerText");
+//   nameText.html(this.value);
+//   const reader = new FileReader();
+//   trailerCheck = true;
+// });
+
+// const movieChose = document.querySelector("#chose-movie");
+
+// movieChose.addEventListener("change", function () {
+//   var nameText = $("#movieText");
+//   nameText.html(this.value);
+//   const reader = new FileReader();
+//   movie = true;
+// });
 
 // web images
 const image_input_poster_web = document.querySelector(
@@ -134,15 +188,68 @@ image_input_thumbnail_web.addEventListener("change", function () {
   reader.readAsDataURL(this.files[0]);
 });
 
-const trailerWeb = document.querySelector("#chose-trailer-web");
+// const trailerWeb = document.querySelector("#chose-trailer-web");
 
-trailerWeb.addEventListener("change", function () {
-  var nameText = $("#trailerTextWeb");
-  nameText.html(this.value);
+// trailerWeb.addEventListener("change", function () {
+//   var nameText = $("#trailerTextWeb");
+//   nameText.html(this.value);
+//   const reader = new FileReader();
+//   trailerCheckWeb = true;
+// });
+
+// web update data
+const image_input_poster_web_update = document.querySelector(
+  "#image-input-poster-web-update"
+);
+
+image_input_poster_web_update.addEventListener("change", function () {
   const reader = new FileReader();
-  trailerCheckWeb = true;
+  reader.addEventListener("load", () => {
+    $("#icon-poster-web-update").css("display", "none");
+    $("#title-poster-web-update").css("display", "none");
+    $("#poster-input-div-web-update").css("padding-top", "20px");
+    $("#display-image-poster-web-update").css("display", "block");
+
+    const uploaded_image = reader.result;
+    document.querySelector(
+      "#display-image-poster-web-update"
+    ).style.backgroundImage = `url(${uploaded_image})`;
+    posterWebUpdate = true;
+  });
+  reader.readAsDataURL(this.files[0]);
 });
 
+const image_input_thumbnail_web_update = document.querySelector(
+  "#image-input-thumbnail-web-update"
+);
+
+image_input_thumbnail_web_update.addEventListener("change", function () {
+  const reader = new FileReader();
+  reader.addEventListener("load", () => {
+    $("#icon-thumbnail-web-update").css("display", "none");
+    $("#title-thumbnail-web-update").css("display", "none");
+    $("#thumbnail-input-div").css("padding-top", "20px");
+    $("#display-image-thumbnail-web-update").css("display", "block");
+
+    const uploaded_image = reader.result;
+    document.querySelector(
+      "#display-image-thumbnail-web-update"
+    ).style.backgroundImage = `url(${uploaded_image})`;
+    thumbnailWebUpdate = true;
+  });
+  reader.readAsDataURL(this.files[0]);
+});
+
+// const trailerWeb_update = document.querySelector("#chose-trailer-web-update");
+
+// trailerWeb_update.addEventListener("change", function () {
+//   var nameText = $("#trailerTextWebUpdate");
+//   nameText.html(this.value);
+//   const reader = new FileReader();
+//   trailerCheckWebUpdate = true;
+// });
+
+// others
 function closeMovie() {
   var dialog = $("#movie-dialog");
   dialog.fadeOut();
@@ -160,6 +267,9 @@ function uploadMovie() {
   var cast = $("#cast").val();
   var errorText = $(".error-text");
   var language = $("#language").val();
+  var trailer_url = $("#trailer-url").val();
+  var stream_url = $("#stream-url").val();
+  var download_url = $("#download-url").val();
 
   if (!poster) {
     errorText.html("Upload Movie Poster");
@@ -179,11 +289,14 @@ function uploadMovie() {
   } else if (cast.length < 4) {
     errorText.html("Enter Cast Names");
     errorText.fadeIn();
-  } else if (!trailerCheck) {
-    errorText.html("Upload Trailer");
+  } else if (trailer_url.length < 4) {
+    errorText.html("Enter Trailer Url");
     errorText.fadeIn();
-  } else if (!movie) {
-    errorText.html("Upload Movie");
+  } else if (stream_url.length < 4) {
+    errorText.html("Enter Stream Url");
+    errorText.fadeIn();
+  } else if (download_url.length < 4) {
+    errorText.html("Enter Download Url");
     errorText.fadeIn();
   } else {
     $("#uploading-dialog").fadeIn();
@@ -199,7 +312,11 @@ function uploadMovie() {
           description: des,
           story: story,
           cast: cast,
+          key: key,
           language: language,
+          download_url: download_url,
+          stream_url: stream_url,
+          trailer_url: trailer_url,
           category: "Movie",
         },
         function (error) {
@@ -219,14 +336,105 @@ function uploadMovie() {
           description: des,
           story: story,
           cast: cast,
+          key: key,
           language: language,
           category: "Movie",
+          download_url: download_url,
+          stream_url: stream_url,
+          trailer_url: trailer_url,
         },
         function (error) {
           if (error) {
             alert("Something went wrong try again");
           } else {
             uploaData(key);
+          }
+        }
+      );
+  }
+}
+
+function updateMovie() {
+  var title = $("#title-update").val();
+  var des = $("#des-update").val();
+  var story = $("#story-update").val();
+  var cast = $("#cast-update").val();
+  var errorText = $(".error-text");
+  var language = $("#language-update").val();
+  var trailer_url = $("#trailer-url-update").val();
+  var stream_url = $("#stream-url-update").val();
+  var download_url = $("#download-url-update").val();
+
+  if (title.length < 4) {
+    errorText.html("Enter Title");
+    errorText.fadeIn();
+  } else if (des.length < 4) {
+    errorText.html("Enter Description");
+    errorText.fadeIn();
+  } else if (story.length < 4) {
+    errorText.html("Enter Story");
+    errorText.fadeIn();
+  } else if (cast.length < 4) {
+    errorText.html("Enter Cast Names");
+    errorText.fadeIn();
+  } else if (trailer_url.length < 4) {
+    errorText.html("Enter Trailer Url");
+    errorText.fadeIn();
+  } else if (stream_url.length < 4) {
+    errorText.html("Enter Stream Url");
+    errorText.fadeIn();
+  } else if (download_url.length < 4) {
+    errorText.html("Enter Download Url");
+    errorText.fadeIn();
+  } else {
+    $("#uploading-dialog").fadeIn();
+    var myRef = firebase.database().ref().push();
+    var key = oldMovieKey;
+    firebase
+      .database()
+      .ref("All_Anime/" + key)
+      .update(
+        {
+          title: title,
+          description: des,
+          story: story,
+          cast: cast,
+          key: key,
+          language: language,
+          download_url: download_url,
+          stream_url: stream_url,
+          trailer_url: trailer_url,
+          category: "Movie",
+        },
+        function (error) {
+          if (error) {
+            alert("Something went wrong try again");
+          } else {
+          }
+        }
+      );
+
+    firebase
+      .database()
+      .ref("Movies/" + key)
+      .update(
+        {
+          title: title,
+          description: des,
+          story: story,
+          cast: cast,
+          key: key,
+          language: language,
+          category: "Movie",
+          download_url: download_url,
+          stream_url: stream_url,
+          trailer_url: trailer_url,
+        },
+        function (error) {
+          if (error) {
+            alert("Something went wrong try again");
+          } else {
+            updateData(key);
           }
         }
       );
@@ -240,6 +448,7 @@ function uploadSeries() {
   var cast = $("#web-cast").val();
   var errorText = $(".error-text");
   var language = $("#web-language").val();
+  var trailer_url = $("#trailer-url-web").val();
 
   if (!posterWeb) {
     errorText.html("Upload Series Poster");
@@ -259,8 +468,8 @@ function uploadSeries() {
   } else if (cast.length < 4) {
     errorText.html("Enter Cast Names");
     errorText.fadeIn();
-  } else if (!trailerCheckWeb) {
-    errorText.html("Upload Trailer");
+  } else if (trailer_url.length < 4) {
+    errorText.html("Enter Trailer Url");
     errorText.fadeIn();
   } else {
     $("#uploading-dialog").fadeIn();
@@ -276,8 +485,10 @@ function uploadSeries() {
           description: des,
           story: story,
           cast: cast,
+          key: key,
           language: language,
-          category: "Movie",
+          category: "Series",
+          trailer_url: trailer_url,
         },
         function (error) {
           if (error) {
@@ -296,8 +507,10 @@ function uploadSeries() {
           description: des,
           story: story,
           cast: cast,
+          key: key,
           language: language,
-          category: "Movie",
+          category: "Series",
+          trailer_url: trailer_url,
         },
         function (error) {
           if (error) {
@@ -310,28 +523,98 @@ function uploadSeries() {
   }
 }
 
+var sKey = "";
+
+function updateSeries() {
+  var title = $("#web-title-update").val();
+  var des = $("#web-des-update").val();
+  var story = $("#web-story-update").val();
+  var cast = $("#web-cast-update").val();
+  var errorText = $(".error-text-update");
+  var language = $("#web-language-update").val();
+  var trailer_url = $("#trailer-url-update-web").val();
+
+  if (title.length < 4) {
+    errorText.html("Enter Title");
+    errorText.fadeIn();
+  } else if (des.length < 4) {
+    errorText.html("Enter Description");
+    errorText.fadeIn();
+  } else if (story.length < 4) {
+    errorText.html("Enter Story");
+    errorText.fadeIn();
+  } else if (cast.length < 4) {
+    errorText.html("Enter Cast Names");
+    errorText.fadeIn();
+  } else if (trailer_url.length < 4) {
+    errorText.html("Enter Trailer Url");
+    errorText.fadeIn();
+  } else {
+    $("#uploading-dialog").fadeIn();
+
+    firebase
+      .database()
+      .ref("All_Anime/" + sKey)
+      .update(
+        {
+          title: title,
+          description: des,
+          story: story,
+          cast: cast,
+          key: sKey,
+          language: language,
+          category: "Series",
+          trailer_url: trailer_url,
+        },
+        function (error) {
+          if (error) {
+            alert("Something went wrong try again");
+          } else {
+          }
+        }
+      );
+
+    firebase
+      .database()
+      .ref("Series/" + sKey)
+      .update(
+        {
+          title: title,
+          description: des,
+          story: story,
+          cast: cast,
+          key: sKey,
+          language: language,
+          category: "Series",
+          trailer_url: trailer_url,
+        },
+        function (error) {
+          if (error) {
+            alert("Something went wrong try again");
+          } else {
+            updateDataSeries(sKey);
+          }
+        }
+      );
+  }
+}
+
 function uploaData(key) {
   $("#uploading-dialog-progress").fadeIn();
   var file = document.getElementById("image-input-poster").files[0];
   var file2 = document.getElementById("image-input-thumbnail").files[0];
-  var file3 = document.getElementById("chose-trailer").files[0];
-  var file4 = document.getElementById("chose-movie").files[0];
   var storage = firebase.storage();
   var myRef = firebase.database().ref().push();
 
   var key2 = myRef.key + "poster";
   var key3 = key2 + "thumbnail";
-  var key4 = key2 + "trailer";
-  var key5 = key2 + "movie";
 
   var storageref = storage.ref();
-  var thisref3 = storageref.child("anime").child(key4).put(file3);
 
   var thisref = storageref.child("anime").child(key2).put(file);
   var thisref2 = storageref.child("anime").child(key3).put(file2);
-  var thisref4 = storageref.child("anime").child(key5).put(file4);
 
-  thisref4.on(
+  thisref.on(
     "state_changed",
     function (snapshot) {
       var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -410,72 +693,6 @@ function uploaData(key) {
               if (error) {
                 alert("Something went wrong try again");
               } else {
-              }
-            }
-          );
-      });
-      thisref3.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-        //getting url of image
-        var url = downloadURL;
-        firebase
-          .database()
-          .ref("All_Anime/" + key)
-          .update(
-            {
-              trailer_url: url,
-            },
-            function (error) {
-              if (error) {
-                alert("Something went wrong try again");
-              } else {
-              }
-            }
-          );
-
-        firebase
-          .database()
-          .ref("Movies/" + key)
-          .update(
-            {
-              trailer_url: url,
-            },
-            function (error) {
-              if (error) {
-                alert("Something went wrong try again");
-              } else {
-              }
-            }
-          );
-      });
-      thisref4.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-        //getting url of image
-        var url = downloadURL;
-        firebase
-          .database()
-          .ref("All_Anime/" + key)
-          .update(
-            {
-              movie_url: url,
-            },
-            function (error) {
-              if (error) {
-                alert("Something went wrong try again");
-              } else {
-              }
-            }
-          );
-
-        firebase
-          .database()
-          .ref("Movies/" + key)
-          .update(
-            {
-              movie_url: url,
-            },
-            function (error) {
-              if (error) {
-                alert("Something went wrong try again");
-              } else {
                 location.reload();
               }
             }
@@ -485,26 +702,176 @@ function uploaData(key) {
   );
 }
 
+function updateData(key) {
+  $("#uploading-dialog-progress").fadeIn();
+  var file = document.getElementById("image-input-poster-update").files[0];
+  var file2 = document.getElementById("image-input-thumbnail-update").files[0];
+  var storage = firebase.storage();
+  var myRef = firebase.database().ref().push();
+
+  var key2 = myRef.key + "poster";
+  var key3 = key2 + "thumbnail";
+
+  var storageref = storage.ref();
+
+  if (moviePosterUpdate) {
+    var thisref = storageref.child("anime").child(key2).put(file);
+    thisref.on(
+      "state_changed",
+      function (snapshot) {
+        var percentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        self.progress = percentage;
+        var p = ParseFloat(percentage, 2);
+        $("#Uploading-percentage").html(p.toString() + "%");
+      },
+      function (error) {
+        alert(error);
+      },
+
+      function () {
+        $("#Uploading-percentage").html("100%");
+        $("#uploading-dialog-progress").fadeOut();
+        var dialog = $("#movie-dialog");
+        dialog.fadeOut();
+
+        thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          //getting url of image
+          var url = downloadURL;
+          firebase
+            .database()
+            .ref("All_Anime/" + key)
+            .update(
+              {
+                poster_url: url,
+              },
+              function (error) {
+                if (error) {
+                  alert("Something went wrong try again");
+                } else {
+                }
+              }
+            );
+
+          firebase
+            .database()
+            .ref("Movies/" + key)
+            .update(
+              {
+                poster_url: url,
+              },
+              function (error) {
+                if (error) {
+                  alert("Something went wrong try again");
+                } else {
+                  if (!movieThumbnailUpdate) {
+                    location.reload();
+                  }
+                }
+              }
+            );
+        });
+      }
+    );
+  }
+
+  if (movieThumbnailUpdate) {
+    var thisref2 = storageref.child("anime").child(key3).put(file2);
+    thisref2.on(
+      "state_changed",
+      function (snapshot) {
+        var percentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        self.progress = percentage;
+        var p = ParseFloat(percentage, 2);
+        $("#Uploading-percentage").html(p.toString() + "%");
+      },
+      function (error) {
+        alert(error);
+      },
+
+      function () {
+        $("#Uploading-percentage").html("100%");
+        $("#uploading-dialog-progress").fadeOut();
+        var dialog = $("#movie-dialog");
+        dialog.fadeOut();
+        thisref2.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          //getting url of image
+          var url = downloadURL;
+          firebase
+            .database()
+            .ref("All_Anime/" + key)
+            .update(
+              {
+                thumbnail_url: url,
+              },
+              function (error) {
+                if (error) {
+                  alert("Something went wrong try again");
+                } else {
+                }
+              }
+            );
+
+          firebase
+            .database()
+            .ref("Movies/" + key)
+            .update(
+              {
+                thumbnail_url: url,
+              },
+              function (error) {
+                if (error) {
+                  alert("Something went wrong try again");
+                } else {
+                  location.reload();
+                }
+              }
+            );
+        });
+      }
+    );
+  } else {
+    location.reload();
+  }
+
+  // thisref.on(
+  //   "state_changed",
+  //   function (snapshot) {
+  //     var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+  //     self.progress = percentage;
+  //     var p = ParseFloat(percentage, 2);
+  //     $("#Uploading-percentage").html(p.toString() + "%");
+  //   },
+  //   function (error) {
+  //     alert(error);
+  //   },
+
+  //   function () {
+  //     $("#Uploading-percentage").html("100%");
+  //     $("#uploading-dialog-progress").fadeOut();
+  //     var dialog = $("#movie-dialog");
+  //     dialog.fadeOut();
+
+  //   }
+  // );
+}
 function uploaDataSeries(key) {
   $("#uploading-dialog-progress").fadeIn();
   var file = document.getElementById("image-input-poster-web").files[0];
   var file2 = document.getElementById("image-input-thumbnail-web").files[0];
-  var file3 = document.getElementById("chose-trailer-web").files[0];
 
   var storage = firebase.storage();
   var myRef = firebase.database().ref().push();
 
   var key2 = myRef.key + "poster";
   var key3 = key2 + "thumbnail";
-  var key4 = key2 + "trailer";
 
   var storageref = storage.ref();
-  var thisref3 = storageref.child("anime").child(key4).put(file3);
-
   var thisref = storageref.child("anime").child(key2).put(file);
   var thisref2 = storageref.child("anime").child(key3).put(file2);
 
-  thisref3.on(
+  thisref2.on(
     "state_changed",
     function (snapshot) {
       var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -583,39 +950,6 @@ function uploaDataSeries(key) {
               if (error) {
                 alert("Something went wrong try again");
               } else {
-              }
-            }
-          );
-      });
-      thisref3.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-        //getting url of image
-        var url = downloadURL;
-        firebase
-          .database()
-          .ref("All_Anime/" + key)
-          .update(
-            {
-              trailer_url: url,
-            },
-            function (error) {
-              if (error) {
-                alert("Something went wrong try again");
-              } else {
-              }
-            }
-          );
-
-        firebase
-          .database()
-          .ref("Series/" + key)
-          .update(
-            {
-              trailer_url: url,
-            },
-            function (error) {
-              if (error) {
-                alert("Something went wrong try again");
-              } else {
                 location.reload();
               }
             }
@@ -624,6 +958,141 @@ function uploaDataSeries(key) {
     }
   );
 }
+
+function updateDataSeries(key) {
+  var file = document.getElementById("image-input-poster-web-update").files[0];
+  var file2 = document.getElementById("image-input-thumbnail-web-update")
+    .files[0];
+
+  var storage = firebase.storage();
+  var myRef = firebase.database().ref().push();
+
+  var key2 = myRef.key + "poster";
+  var key3 = key2 + "thumbnail";
+
+  var storageref = storage.ref();
+
+  if (posterWebUpdate) {
+    var thisref = storageref.child("anime").child(key2).put(file);
+    thisref.on(
+      "state_changed",
+      function (snapshot) {
+        if (!thumbnailWebUpdate) {
+          $("#uploading-dialog-progress").fadeIn();
+          var percentage =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          self.progress = percentage;
+          var p = ParseFloat(percentage, 2);
+          $("#Uploading-percentage").html(p.toString() + "%");
+        }
+      },
+      function (error) {
+        alert(error);
+      },
+
+      function () {
+        thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          //getting url of image
+          var url = downloadURL;
+          firebase
+            .database()
+            .ref("All_Anime/" + key)
+            .update(
+              {
+                poster_url: url,
+              },
+              function (error) {
+                if (error) {
+                  alert("Something went wrong try again");
+                } else {
+                }
+              }
+            );
+
+          firebase
+            .database()
+            .ref("Series/" + key)
+            .update(
+              {
+                poster_url: url,
+              },
+              function (error) {
+                if (error) {
+                  alert("Something went wrong try again");
+                } else {
+                  if (!thumbnailWebUpdate) {
+                    location.reload();
+                  }
+                }
+              }
+            );
+        });
+      }
+    );
+  }
+
+  if (thumbnailWebUpdate) {
+    var thisref2 = storageref.child("anime").child(key3).put(file2);
+    thisref2.on(
+      "state_changed",
+      function (snapshot) {
+        $("#uploading-dialog-progress").fadeIn();
+        var percentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        self.progress = percentage;
+        var p = ParseFloat(percentage, 2);
+        $("#Uploading-percentage").html(p.toString() + "%");
+      },
+      function (error) {
+        alert(error);
+      },
+
+      function () {
+        thisref2.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          //getting url of image
+          var url = downloadURL;
+          firebase
+            .database()
+            .ref("All_Anime/" + key)
+            .update(
+              {
+                thumbnail_url: url,
+              },
+              function (error) {
+                if (error) {
+                  alert("Something went wrong try again");
+                } else {
+                }
+              }
+            );
+
+          firebase
+            .database()
+            .ref("Series/" + key)
+            .update(
+              {
+                thumbnail_url: url,
+              },
+              function (error) {
+                if (error) {
+                  alert("Something went wrong try again");
+                } else {
+                  if (thumbnailWebUpdate) {
+                    location.reload();
+                  }
+                }
+              }
+            );
+        });
+      }
+    );
+  }
+
+  if (!posterWebUpdate && !thumbnailWebUpdate) {
+    location.reload();
+  }
+}
+
 function ParseFloat(str, val) {
   str = str.toString();
   str = str.slice(0, str.indexOf(".") + val + 1);
@@ -662,14 +1131,49 @@ function loadMovies() {
       var mydiv = document.getElementById("movie-list");
 
       var poster = childSnapshot.val().poster_url;
-      // var month = childSnapshot.val().month;
-      // var name = childSnapshot.val().username;
-      // var selfie = childSnapshot.val().selfie;
-      // var id = childSnapshot.val().training_id;
+      var key = childSnapshot.val().key;
+      var thumbnail = childSnapshot.val().thumbnail_url;
+      var title = childSnapshot.val().title;
+      var cast = childSnapshot.val().cast;
+      var story = childSnapshot.val().story;
+      var des = childSnapshot.val().description;
+      var language = childSnapshot.val().language;
+      var trailer = childSnapshot.val().trailer_url;
+      var movie_url = childSnapshot.val().movie_url;
+      var stream_url = childSnapshot.val().stream_url;
+      var download_url = childSnapshot.val().download_url;
 
-      mydiv.innerHTML += `<div style="padding: 0px;" class="anime-card col-xl-3">
+      mydiv.innerHTML +=
+        `<a href="#" onClick="openMovie(\`` +
+        key +
+        `\`, \`` +
+        poster +
+        `\`, \`` +
+        thumbnail +
+        `\`,\`` +
+        title +
+        `\`,\`` +
+        des +
+        `\`,\`` +
+        story +
+        `\`,\`` +
+        cast +
+        `\`,\`` +
+        language +
+        `\`,\`` +
+        trailer +
+        `\`,\`` +
+        stream_url +
+        `\`,\`` +
+        download_url +
+        `\`)">
+      <div style="padding: 0px;" class="anime-card col-xl-3">
       <img  class="anime-poster" src="${poster}" alt="" />
-    </div>`;
+
+
+    </div>
+    </a>
+      `;
     });
   });
 }
@@ -681,14 +1185,521 @@ function loadSeries() {
       var mydiv = document.getElementById("movie-list");
 
       var poster = childSnapshot.val().poster_url;
-      // var month = childSnapshot.val().month;
-      // var name = childSnapshot.val().username;
-      // var selfie = childSnapshot.val().selfie;
-      // var id = childSnapshot.val().training_id;
+      var key = childSnapshot.val().key;
+      var poster = childSnapshot.val().poster_url;
+      var thumbnail = childSnapshot.val().thumbnail_url;
+      var title = childSnapshot.val().title;
+      var cast = childSnapshot.val().cast;
+      var story = childSnapshot.val().story;
+      var des = childSnapshot.val().description;
+      var language = childSnapshot.val().language;
+      var trailer = childSnapshot.val().trailer_url;
 
-      mydiv.innerHTML += `<div style="padding: 0px;" class="anime-card col-xl-3">
-      <img  class="anime-poster" src="${poster}" alt="" />
-    </div>`;
+      mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img  onClick="openSeries(\`` +
+        key +
+        `\`, \`` +
+        poster +
+        `\`, \`` +
+        thumbnail +
+        `\`,\`` +
+        title +
+        `\`,\`` +
+        des +
+        `\`,\`` +
+        story +
+        `\`,\`` +
+        cast +
+        `\`,\`` +
+        language +
+        `\`,\`` +
+        trailer +
+        `\`)"class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="addSeasons(\`` +
+        key +
+        `\`,\`` +
+        title +
+        `\`)" class="menu-drop">Add Seasons</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
     });
   });
+}
+
+function closeSeriesUpdate() {
+  $("#series-dialog-update").fadeOut();
+}
+function openSeries(
+  key,
+  poster,
+  thumbnail,
+  title,
+  des,
+  story,
+  cast,
+  language,
+  trailer
+) {
+  localStorage.setItem("seriesKey", key);
+  sKey = key;
+  $("#series-dialog-update").fadeIn();
+  $("#icon-poster-web-update").css("display", "none");
+  $("#title-poster-web-update").css("display", "none");
+  $("#poster-input-div-web-update").css("padding-top", "20px");
+  $("#display-image-poster-web-update").css("display", "block");
+  document.querySelector(
+    "#display-image-poster-web-update"
+  ).style.backgroundImage = `url(${poster})`;
+
+  $("#icon-thumbnail-web-update").css("display", "none");
+  $("#title-thumbnail-web-update").css("display", "none");
+  $("#thumbnail-input-div").css("padding-top", "20px");
+  $("#display-image-thumbnail-web-update").css("display", "block");
+
+  document.querySelector(
+    "#display-image-thumbnail-web-update"
+  ).style.backgroundImage = `url(${thumbnail})`;
+
+  document.getElementById("web-title-update").value = title;
+  document.getElementById("web-des-update").value = des;
+  document.getElementById("web-story-update").value = story;
+  document.getElementById("web-cast-update").value = cast;
+  document.getElementById("web-language-update").value = language;
+  document.getElementById("trailer-url-update-web").value = trailer;
+}
+
+function openMovie(
+  key,
+  poster,
+  thumbnail,
+  title,
+  des,
+  story,
+  cast,
+  language,
+  trailer,
+  stream_url,
+  download_url
+) {
+  localStorage.setItem("seriesKey", key);
+  oldMovieKey = key;
+  $("#movie-dialog-update").fadeIn();
+  $("#icon-poster-update").css("display", "none");
+  $("#title-poster-update").css("display", "none");
+  $("#poster-input-div-update").css("padding-top", "20px");
+  $("#display-image-poster-update").css("display", "block");
+  document.querySelector(
+    "#display-image-poster-update"
+  ).style.backgroundImage = `url(${poster})`;
+
+  $("#icon-thumbnail-update").css("display", "none");
+  $("#title-thumbnail-update").css("display", "none");
+  $("#thumbnail-input-div-update").css("padding-top", "20px");
+  $("#display-image-thumbnail-update").css("display", "block");
+
+  document.querySelector(
+    "#display-image-thumbnail-update"
+  ).style.backgroundImage = `url(${thumbnail})`;
+
+  document.getElementById("title-update").value = title;
+  document.getElementById("des-update").value = des;
+  document.getElementById("story-update").value = story;
+  document.getElementById("cast-update").value = cast;
+  document.getElementById("language-update").value = language;
+  document.getElementById("trailer-url-update").value = trailer;
+  document.getElementById("stream-url-update").value = stream_url;
+  document.getElementById("download-url-update").value = download_url;
+}
+
+function closeMovieUpdate() {
+  $("#movie-dialog-update").fadeOut();
+}
+
+function addSeasons(key, title) {
+  seasonCount = 1;
+  $("#seasons-overview-dialog").fadeIn();
+  $("#seasons-title").html(title);
+  seasonKey = key;
+  var mydiv = document.getElementById("seasons-list");
+  mydiv.innerHTML = "";
+  var query = firebase.database().ref("Series/" + key + "/seasons");
+  query.once("value", function (snapshot) {
+    if (snapshot.exists()) {
+      snapshot.forEach(function (childSnapshot) {
+        seasonCount++;
+        $("#no-seasons").fadeOut();
+        var mydiv = document.getElementById("seasons-list");
+
+        var title = childSnapshot.val().title;
+        var sekey = childSnapshot.val().key;
+
+        mydiv.innerHTML +=
+          `
+        <button onClick="selectSeason(\`` +
+          title +
+          `\`,\`` +
+          seasonKey +
+          `\`,\`` +
+          sekey +
+          `\`,)" class="seasons-tab">
+        <h5>${title}</h5>
+      </button>
+        `;
+      });
+    } else {
+      $("#no-seasons").fadeIn();
+      var mydiv = document.getElementById("seasons-list");
+      mydiv.innerHTML = "";
+      seasonCount = 1;
+    }
+  });
+}
+
+function closeSeasonsDialog() {
+  $("#seasons-overview-dialog").fadeOut();
+}
+
+function addSeason() {
+  $("#add-season-dialog").fadeIn();
+  $("#season-title").val("Season " + seasonCount);
+}
+
+function addSeasonNew() {
+  var title = $("#season-title").val();
+  var myRef = firebase.database().ref().push();
+  var newSkey = myRef.key;
+  firebase
+    .database()
+    .ref("All_Anime/" + seasonKey + "/seasons/" + newSkey)
+    .update(
+      {
+        title: title,
+        key: newSkey,
+      },
+      function (error) {
+        if (error) {
+          alert("Something went wrong try again");
+        } else {
+        }
+      }
+    );
+
+  firebase
+    .database()
+    .ref("Series/" + seasonKey + "/seasons/" + newSkey)
+    .update(
+      {
+        title: title,
+        key: newSkey,
+      },
+      function (error) {
+        if (error) {
+          alert("Something went wrong try again");
+        } else {
+          $("#add-season-dialog").fadeOut();
+          addSeasons(seasonKey, title);
+        }
+      }
+    );
+}
+
+function closeAddSeasonsDialog() {
+  $("#add-season-dialog").fadeOut();
+}
+function closeAddEpisodeDialog() {
+  $("#add-episode-dialog").fadeOut();
+}
+function closeAddEpisodeDialogUpdate() {
+  $("#add-episode-dialog-update").fadeOut();
+  var vid = document.getElementById("vid");
+  vid.pause();
+}
+
+function selectSeason(title, key, sekey) {
+  webKey = key;
+  seasKey = sekey;
+  sTitle = title;
+  $("#selected-season-text").html(title);
+  $("#add-episode-button").css("display", "block");
+
+  showEpisodes();
+}
+
+function addEpisode() {
+  $("#add-episode-dialog").fadeIn();
+  if (episodeCount < 10) {
+    $("#episode-title").val("EP-0" + episodeCount);
+  } else {
+    $("#episode-title").val("EP-" + episodeCount);
+  }
+}
+
+function addEpisodeNew() {
+  var title = $("#episode-title").val();
+  var stream = $("#episode-stream-url").val();
+  var download = $("#episode-download-url").val();
+
+  var myRef = firebase.database().ref().push();
+
+  if (title.length < 4) {
+    $("#error-text-episode").fadeIn();
+    $("#error-text-episode").html("Enter title");
+  } else if (stream.length < 10) {
+    $("#error-text-episode").fadeIn();
+    $("#error-text-episode").html("Invalid stream url");
+  } else if (download.length < 10) {
+    $("#error-text-episode").fadeIn();
+    $("#error-text-episode").html("Invalid download url");
+  } else {
+    $("#error-text-episode").fadeOut();
+    var epKey = myRef.key;
+    firebase
+      .database()
+      .ref(
+        "All_Anime/" + seasonKey + "/seasons/" + seasKey + "/episodes/" + epKey
+      )
+      .update(
+        {
+          title: title,
+          stream_url: stream,
+          download_url: download,
+          key: epKey,
+        },
+        function (error) {
+          if (error) {
+            alert("Something went wrong try again");
+          } else {
+          }
+        }
+      );
+
+    firebase
+      .database()
+      .ref("Series/" + seasonKey + "/seasons/" + seasKey + "/episodes/" + epKey)
+      .update(
+        {
+          title: title,
+          stream_url: stream,
+          download_url: download,
+          key: epKey,
+        },
+        function (error) {
+          if (error) {
+            alert("Something went wrong try again");
+          } else {
+            $("#episode-title").val("");
+            $("#episode-stream-url").val("");
+            $("#episode-download-url").val("");
+            relodeEpisode();
+          }
+        }
+      );
+  }
+}
+
+function showEpisodes() {
+  episodeCount = 1;
+  $("#seasons-overview-dialog").fadeIn();
+  $("#episode-title").html(title);
+  var mydiv = document.getElementById("episodes-list");
+  mydiv.innerHTML = "";
+  var query = firebase
+    .database()
+    .ref("Series/" + seasonKey + "/seasons/" + seasKey + "/episodes/");
+  query.once("value", function (snapshot) {
+    if (snapshot.exists()) {
+      snapshot.forEach(function (childSnapshot) {
+        episodeCount++;
+        var mydiv = document.getElementById("episodes-list");
+
+        var title = childSnapshot.val().title;
+        var epkey = childSnapshot.val().key;
+        var stream = childSnapshot.val().stream_url;
+        var download = childSnapshot.val().download_url;
+
+        mydiv.innerHTML +=
+          `
+            <div
+            onClick="updateEpisodeDialog(
+              \`` +
+          title +
+          `\`,
+          \`` +
+          stream +
+          `\`,
+          \`` +
+          download +
+          `\`,\`` +
+          epkey +
+          `\`
+            )"
+            class="anime-card"
+            style="text-align: center; padding-top: 50px;  justify-content: center; align-items: center;"
+          >
+
+            <h4 id="ep-numebr">${title}</h4>
+            <h6 id="ep-title" style="color: gray">${sTitle}</h6>
+          </div>
+        
+        `;
+      });
+    } else {
+      var mydiv = document.getElementById("episodes-list");
+      mydiv.innerHTML = "";
+      episodeCount = 1;
+    }
+  });
+}
+
+function relodeEpisode() {
+  $("#add-episode-dialog").fadeOut();
+  var mydiv = document.getElementById("episodes-list");
+  mydiv.innerHTML = "";
+  episodeCount = 1;
+  $("#seasons-overview-dialog").fadeIn();
+  $("#episode-title").html(title);
+  var mydiv = document.getElementById("episodes-list");
+  mydiv.innerHTML = "";
+  var query = firebase
+    .database()
+    .ref("Series/" + seasonKey + "/seasons/" + seasKey + "/episodes/");
+
+  query.once("value", function (snapshot) {
+    if (snapshot.exists()) {
+      snapshot.forEach(function (childSnapshot) {
+        episodeCount++;
+        var mydiv = document.getElementById("episodes-list");
+
+        var title = childSnapshot.val().title;
+        var epkey = childSnapshot.val().key;
+        var stream = childSnapshot.val().stream_url;
+        var download = childSnapshot.val().download_url;
+
+        mydiv.innerHTML +=
+          `
+            <div onClick="updateEpisodeDialog(
+              \`` +
+          title +
+          `\`,
+          \`` +
+          stream +
+          `\`,
+          \`` +
+          download +
+          `\`,\`` +
+          epkey +
+          `\`
+            )"
+            class="anime-card" 
+            style="text-align: center; padding-top: 50px;  justify-content: center; align-items: center;"
+          >
+
+            <h4 id="ep-numebr">${title}</h4>
+            <h6 id="ep-title" style="color: gray">${sTitle}</h6>
+          </div>
+        
+        `;
+      });
+    } else {
+      var mydiv = document.getElementById("episodes-list");
+      mydiv.innerHTML = "";
+      episodeCount = 1;
+    }
+  });
+}
+
+var oldEpKey = "";
+
+function updateEpisodeDialog(title, stream, download, epKey) {
+  oldEpKey = epKey;
+  $("#add-episode-dialog-update").fadeIn();
+  $("#episode-title-update").val(title);
+  $("#episode-stream-url-update").val(stream);
+  $("#episode-download-url-update").val(download);
+
+  var vid = document.getElementById("ep-vid-div");
+
+  vid.innerHTML = ` 
+   <video id="vid" width="320" height="220" controls autoplay>
+  <source src="${stream}" type="video/mp4" />
+  <source src="${stream}" type="video/ogg" />
+  Your browser does not support the video tag.
+</video>
+`;
+}
+
+function updateEpisode() {
+  var title = $("#episode-title-update").val();
+  var stream = $("#episode-stream-url-update").val();
+  var download = $("#episode-download-url-update").val();
+
+  var myRef = firebase.database().ref().push();
+
+  if (title.length < 4) {
+    $("#error-text-episode").fadeIn();
+    $("#error-text-episode").html("Enter title");
+  } else if (stream.length < 10) {
+    $("#error-text-episode").fadeIn();
+    $("#error-text-episode").html("Invalid stream url");
+  } else if (download.length < 10) {
+    $("#error-text-episode").fadeIn();
+    $("#error-text-episode").html("Invalid download url");
+  } else {
+    $("#error-text-episode").fadeOut();
+    var epKey = oldEpKey;
+    firebase
+      .database()
+      .ref(
+        "All_Anime/" + seasonKey + "/seasons/" + seasKey + "/episodes/" + epKey
+      )
+      .update(
+        {
+          title: title,
+          stream_url: stream,
+          download_url: download,
+          key: epKey,
+        },
+        function (error) {
+          if (error) {
+            alert("Something went wrong try again");
+          } else {
+          }
+        }
+      );
+
+    firebase
+      .database()
+      .ref("Series/" + seasonKey + "/seasons/" + seasKey + "/episodes/" + epKey)
+      .update(
+        {
+          title: title,
+          stream_url: stream,
+          download_url: download,
+          key: epKey,
+        },
+        function (error) {
+          if (error) {
+            alert("Something went wrong try again");
+          } else {
+            $("#episode-title-update").val("");
+            $("#episode-stream-url-update").val("");
+            $("#episode-download-url-update").val("");
+            $("#add-episode-dialog-update").fadeOut();
+            relodeEpisode();
+          }
+        }
+      );
+  }
 }

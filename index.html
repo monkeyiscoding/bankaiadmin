@@ -19,6 +19,7 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="style/style.css" />
   </head>
+
   <body>
     <div class="main-div">
       <div class="nav-bar">
@@ -205,7 +206,28 @@
           type="text"
           placeholder="Story Line"
         />
+
         <input id="cast" class="classic-input" type="text" placeholder="Cast" />
+
+        <input
+          id="trailer-url"
+          class="classic-input"
+          type="text"
+          placeholder="Trailer Url"
+        />
+
+        <input
+          id="stream-url"
+          class="classic-input"
+          type="text"
+          placeholder="Stream Url"
+        />
+        <input
+          id="download-url"
+          class="classic-input"
+          type="text"
+          placeholder="Download Url"
+        />
 
         <select class="classic-input drop-down" name="cars" id="language">
           <option value="English, Japanese">English, Japanese</option>
@@ -220,15 +242,7 @@
         </select>
         <br />
         <br />
-        <h4 id="trailerText">Chose Trailer</h4>
-        <input id="chose-trailer" type="file" />
-        <br />
-        <br />
-        <br />
-        <h4 id="movieText">Chose Movie File</h4>
-        <input id="chose-movie" type="file" />
-        <br />
-        <br />
+
         <h5 class="error-text">Upload poster image</h5>
         <button
           onclick="uploadMovie()"
@@ -331,6 +345,12 @@
           type="text"
           placeholder="Cast"
         />
+        <input
+          id="trailer-url-web"
+          class="classic-input"
+          type="text"
+          placeholder="Trailer Url"
+        />
 
         <select class="classic-input drop-down" name="cars" id="web-language">
           <option value="English, Japanese">English, Japanese</option>
@@ -343,10 +363,7 @@
           <option value="Hindi English">Hindi, English</option>
           <option value="Hindi Japanese">Hindi, Japanese</option>
         </select>
-        <br />
-        <br />
-        <h4 id="trailerTextWeb">Chose Trailer</h4>
-        <input id="chose-trailer-web" type="file" />
+
         <br />
         <br />
         <h5 class="error-text">Upload poster image</h5>
@@ -366,6 +383,476 @@
         <br />
         <br />
         <br />
+      </div>
+    </div>
+
+    <div id="series-dialog-update" class="dialog">
+      <div class="add-movie-div">
+        <div onclick="closeSeriesUpdate()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <br />
+        <br />
+        <h1 style="padding-left: 63px">UPDATE SERIES</h1>
+
+        <div class="images-div">
+          <div class="poster-div">
+            <div id="poster-input-div-web-update">
+              <i id="icon-poster-web-update" class="fa-solid fa-plus fa-2x"></i>
+              <h4 class="img-title" id="title-poster-web-update">
+                Poster image
+              </h4>
+
+              <div
+                id="display-image-poster-web-update"
+                class="image-poster"
+              ></div>
+
+              <a href="#">
+                <input
+                  title=""
+                  class="input-file"
+                  style=""
+                  type="file"
+                  id="image-input-poster-web-update"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </a>
+            </div>
+          </div>
+
+          <div class="thumbnail-div">
+            <div id="thumbnail-input-div-web-update">
+              <i
+                id="icon-thumbnail-web-update"
+                class="fa-solid fa-plus fa-2x"
+              ></i>
+              <h4 class="img-title" id="title-thumbnail-web-update">
+                Thumbnail image
+              </h4>
+
+              <div
+                id="display-image-thumbnail-web-update"
+                class="image-thumbnail"
+              ></div>
+
+              <a href="#">
+                <input
+                  title=""
+                  class="input-file"
+                  style=""
+                  type="file"
+                  id="image-input-thumbnail-web-update"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <input
+          id="web-title-update"
+          class="classic-input"
+          type="text"
+          placeholder="Title"
+        />
+        <input
+          id="web-des-update"
+          class="classic-input"
+          type="text"
+          placeholder="Description"
+        />
+        <input
+          id="web-story-update"
+          class="classic-input"
+          type="text"
+          placeholder="Story Line"
+        />
+        <input
+          id="web-cast-update"
+          class="classic-input"
+          type="text"
+          placeholder="Cast"
+        />
+        <input
+          id="trailer-url-update-web"
+          class="classic-input"
+          type="text"
+          placeholder="Trailer Url"
+        />
+
+        <select
+          class="classic-input drop-down"
+          name="cars"
+          id="web-language-update"
+        >
+          <option value="English, Japanese">English, Japanese</option>
+          <option value="Japanese">Japanese</option>
+          <option value="English">English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi English Japanese">
+            Hindi, English, Japanese
+          </option>
+          <option value="Hindi English">Hindi, English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+        </select>
+        <br />
+        <br />
+        <br />
+        <h5 class="error-text">Upload poster image</h5>
+        <button
+          onclick="updateSeries()"
+          style="
+            width: 60%;
+            margin-right: 20%;
+            height: 60px;
+            border-radius: 5px;
+          "
+          class="add-button"
+        >
+          Save
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
+    </div>
+
+    <div id="movie-dialog-update" class="dialog">
+      <div class="add-movie-div">
+        <div onclick="closeMovieUpdate()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <br />
+        <br />
+        <h1 style="padding-left: 63px">ADD MOVIE</h1>
+
+        <div class="images-div">
+          <div class="poster-div">
+            <div id="poster-input-div-update">
+              <i id="icon-poster-update" class="fa-solid fa-plus fa-2x"></i>
+              <h4 class="img-title" id="title-poster-update">Poster image</h4>
+
+              <div id="display-image-poster-update" class="image-poster"></div>
+
+              <a href="#">
+                <input
+                  title=""
+                  class="input-file"
+                  style=""
+                  type="file"
+                  id="image-input-poster-update"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </a>
+            </div>
+          </div>
+
+          <div class="thumbnail-div">
+            <div id="thumbnail-input-div-update">
+              <i id="icon-thumbnail-update" class="fa-solid fa-plus fa-2x"></i>
+              <h4 class="img-title" id="title-thumbnail-update">
+                Thumbnail image
+              </h4>
+
+              <div
+                id="display-image-thumbnail-update"
+                class="image-thumbnail"
+              ></div>
+
+              <a href="#">
+                <input
+                  title=""
+                  class="input-file"
+                  style=""
+                  type="file"
+                  id="image-input-thumbnail-update"
+                  accept="image/jpeg, image/png, image/jpg"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <input
+          id="title-update"
+          class="classic-input"
+          type="text"
+          placeholder="Title"
+        />
+        <input
+          id="des-update"
+          class="classic-input"
+          type="text"
+          placeholder="Description"
+        />
+        <input
+          id="story-update"
+          class="classic-input"
+          type="text"
+          placeholder="Story Line"
+        />
+
+        <input
+          id="cast-update"
+          class="classic-input"
+          type="text"
+          placeholder="Cast"
+        />
+
+        <input
+          id="trailer-url-update"
+          class="classic-input"
+          type="text"
+          placeholder="Trailer Url"
+        />
+
+        <input
+          id="stream-url-update"
+          class="classic-input"
+          type="text"
+          placeholder="Stream Url"
+        />
+        <input
+          id="download-url-update"
+          class="classic-input"
+          type="text"
+          placeholder="Download Url"
+        />
+
+        <select
+          class="classic-input drop-down"
+          name="cars"
+          id="language-update"
+        >
+          <option value="English, Japanese">English, Japanese</option>
+          <option value="Japanese">Japanese</option>
+          <option value="English">English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi English Japanese">
+            Hindi, English, Japanese
+          </option>
+          <option value="Hindi English">Hindi, English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+        </select>
+        <br />
+        <br />
+
+        <h5 class="error-text">Upload poster image</h5>
+        <button
+          onclick="updateMovie()"
+          style="
+            width: 60%;
+            margin-right: 20%;
+            height: 60px;
+            border-radius: 5px;
+          "
+          class="add-button"
+        >
+          Update Movie
+        </button>
+        <br />
+        <br />
+        <br />
+        <br />
+      </div>
+    </div>
+
+    <div id="seasons-overview-dialog" class="dialog">
+      <div
+        class="add-movie-div"
+        style="
+          height: 100vh;
+          display: flex;
+          align-items: start;
+          text-align: start;
+          justify-content: start;
+        "
+      >
+        <div class="nav-bar" style="padding-left: 0%; text-align: center">
+          <h3 id="seasons-title" style="margin: 0px 20px">Seasons</h3>
+          <br />
+          <button
+            onclick="addSeason()"
+            class="add-button"
+            style="display: inline-block; float: none; margin-top: 0px"
+          >
+            Add Seasons
+          </button>
+          <br />
+          <hr />
+          <br />
+          <h3
+            id="no-seasons"
+            style="display: none; color: gray; margin: 0px 50px"
+          >
+            No seasons added yet
+          </h3>
+          <div id="seasons-list"></div>
+        </div>
+        <div style="margin-left: 330px; width: 100%">
+          <div onclick="closeSeasonsDialog()" class="close-dialog">
+            <i style="color: black; margin-top: 20px" data-feather="x"></i>
+          </div>
+          <br />
+          <br />
+          <h2 id="selected-season-text">Select Season</h2>
+          <button
+            id="add-episode-button"
+            onclick="addEpisode()"
+            class="add-button"
+            style="display: none"
+          >
+            Add Episodes
+          </button>
+          <br />
+          <br />
+          <h5>All Episodes</h5>
+          <div id="episodes-list" class="episodes-list row"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="add-season-dialog" class="dialog">
+      <div class="add-movie-div">
+        <div onclick="closeAddSeasonsDialog()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <br />
+        <br />
+
+        <h3>Add Season</h3>
+        <br />
+
+        <input
+          id="season-title"
+          class="classic-input"
+          type="text"
+          placeholder="Season Title"
+        />
+
+        <br />
+        <br />
+        <button
+          onclick="addSeasonNew()"
+          class="add-button"
+          style="
+            display: inline-block;
+            float: none;
+            margin-top: 0px;
+            width: 50%;
+            border-radius: 5px;
+          "
+        >
+          Add Seasons
+        </button>
+      </div>
+    </div>
+
+    <div id="add-episode-dialog" class="dialog">
+      <div class="add-movie-div">
+        <div onclick="closeAddEpisodeDialog()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <br />
+        <br />
+
+        <h3>Add Episode</h3>
+        <br />
+
+        <input
+          id="episode-title"
+          class="classic-input"
+          type="text"
+          placeholder="Episode Title"
+        />
+
+        <input
+          id="episode-stream-url"
+          class="classic-input"
+          type="text"
+          placeholder="Episode Stream Url"
+        />
+        <input
+          id="episode-download-url"
+          class="classic-input"
+          type="text"
+          placeholder="Episode Download Url"
+        />
+
+        <br />
+        <br />
+
+        <h6 id="error-text-episode" style="color: red; display: none"></h6>
+        <button
+          onclick="addEpisodeNew()"
+          class="add-button"
+          style="
+            display: inline-block;
+            float: none;
+            margin-top: 0px;
+            width: 50%;
+            border-radius: 5px;
+          "
+        >
+          Add Episode
+        </button>
+      </div>
+    </div>
+
+    <div id="add-episode-dialog-update" class="dialog">
+      <div class="add-movie-div">
+        <div onclick="closeAddEpisodeDialogUpdate()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <br />
+        <br />
+
+        <h3>Add Episode</h3>
+        <br />
+
+        <input
+          id="episode-title-update"
+          class="classic-input"
+          type="text"
+          placeholder="Episode Title"
+        />
+
+        <input
+          id="episode-stream-url-update"
+          class="classic-input"
+          type="text"
+          placeholder="Episode Stream Url"
+        />
+        <input
+          id="episode-download-url-update"
+          class="classic-input"
+          type="text"
+          placeholder="Episode Download Url"
+        />
+        <br />
+        <br />
+
+        <div id="ep-vid-div"></div>
+
+        <br />
+        <br />
+
+        <h6 id="error-text-episode" style="color: red; display: none"></h6>
+        <button
+          onclick="updateEpisode()"
+          class="add-button"
+          style="
+            display: inline-block;
+            float: none;
+            margin-top: 0px;
+            width: 50%;
+            border-radius: 5px;
+          "
+        >
+          Update Episode
+        </button>
       </div>
     </div>
 

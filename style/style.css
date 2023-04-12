@@ -139,7 +139,7 @@ body {
 .all-anime-list {
   display: flex;
   width: 100%;
-  margin-top: 30px;
+  margin-left: 10px;
 }
 
 .data-div {
@@ -413,16 +413,17 @@ input[type="file"]::-webkit-file-upload-button {
 
 .anime-card {
   width: 100px;
-  height: 140px;
+  height: 160px;
   box-shadow: 5px 5px 10px black;
-  border-radius: 10px;
+  border-radius: 2px;
   margin-right: 20px;
+  margin-top: 30px;
 }
 
 .anime-poster {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
+  width: 100px;
+  height: 160px;
+  border-radius: 2px;
 }
 
 .tab-div {
@@ -460,4 +461,74 @@ input[type="file"]::-webkit-file-upload-button {
 a.fill-div {
   text-decoration: none;
   color: white;
+}
+
+.list-categories {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  max-height: 0px;
+  position: absolute;
+  opacity: 0;
+  overflow: hidden;
+  width: 150px;
+  background-color: var(--secondry-color);
+  transition: opacity 300ms ease;
+  box-shadow: 5px 5px 10px black;
+  padding: 5px 10px;
+}
+
+.anime-card:hover .list-categories {
+  max-height: inherit;
+  opacity: 1;
+}
+
+.menu-drop {
+  text-decoration: none;
+  color: white;
+  background-color: var(--secondry-color);
+  border: none;
+}
+
+.menu-drop:hover {
+  text-decoration: none;
+  color: gray;
+  background-color: rgba(128, 128, 128, 0.062);
+}
+
+.seasons-tab-selected {
+  background-color: var(--secondry-color);
+  color: white;
+  width: 80%;
+  padding-top: 10px;
+  padding-bottom: 8px;
+}
+
+.seasons-tab {
+  background-color: var(--secondry-color);
+  color: white;
+  width: 80%;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  margin-top: 10px;
+}
+
+.seasons-tab:hover {
+  background-color: var(--secondry-color);
+  color: white;
+  width: 80%;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  box-shadow: 5px 5px 10px black;
+  transition: 400ms;
+}
+
+/* ipad */
+@media (max-width: 1366px) {
+  .add-movie-div {
+    width: 100%;
+    margin-left: 5%;
+  }
 }
