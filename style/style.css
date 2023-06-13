@@ -525,6 +525,19 @@ a.fill-div {
   transition: 400ms;
 }
 
+.menu-a {
+  text-decoration: none;
+  color: white;
+}
+
+.menu-a:hover {
+  color: var(--primary-color);
+}
+
+.top-treanding {
+  padding-bottom: 50px;
+}
+
 /* ipad */
 @media (max-width: 1366px) {
   .add-movie-div {

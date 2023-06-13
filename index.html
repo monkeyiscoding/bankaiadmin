@@ -31,20 +31,26 @@
           <h6 class="menu-title-selected">Home</h6>
         </div>
 
-        <div id="top-trending" class="menu-option">
-          <i data-feather="activity"></i>
-          <h6 class="menu-title">Top Trending</h6>
-        </div>
+        <a href="#" class="menu-a" onclick="openTopTreanding()">
+          <div id="top-trending" class="menu-option">
+            <i data-feather="activity"></i>
+            <h6 class="menu-title">Top Trending</h6>
+          </div>
+        </a>
 
-        <div id="top-trending" class="menu-option">
-          <i data-feather="dollar-sign"></i>
-          <h6 class="menu-title">Free Anime</h6>
-        </div>
+        <a href="#" class="menu-a" onclick="openHindi()">
+          <div id="free-anime" class="menu-option">
+            <i data-feather="dollar-sign">ॐ</i>
+            <h6 class="menu-title">Hindi Anime</h6>
+          </div>
+        </a>
 
-        <div id="top-trending" class="menu-option">
-          <i data-feather="user"></i>
-          <h6 class="menu-title">Users</h6>
-        </div>
+        <a href="#" class="menu-a" onclick="openNewAdded()">
+          <div id="Users" class="menu-option">
+            <i data-feather="user"></i>
+            <h6 class="menu-title">New Added Anime</h6>
+          </div>
+        </a>
       </div>
 
       <div class="content-div">
@@ -208,6 +214,12 @@
         />
 
         <input id="cast" class="classic-input" type="text" placeholder="Cast" />
+        <input
+          id="imdb"
+          class="classic-input"
+          type="text"
+          placeholder="Imdb Rating"
+        />
 
         <input
           id="trailer-url"
@@ -233,12 +245,13 @@
           <option value="English, Japanese">English, Japanese</option>
           <option value="Japanese">Japanese</option>
           <option value="English">English</option>
-          <option value="Hindi Japanese">Hindi, Japanese</option>
-          <option value="Hindi English Japanese">
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English, Japanese">
             Hindi, English, Japanese
           </option>
-          <option value="Hindi English">Hindi, English</option>
-          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English">Hindi, English</option>
+          <option value="Hindi, English, Korean">Hindi, English, Korean</option>
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
         </select>
         <br />
         <br />
@@ -346,6 +359,12 @@
           placeholder="Cast"
         />
         <input
+          id="web-imdb"
+          class="classic-input"
+          type="text"
+          placeholder="Imdb Rating"
+        />
+        <input
           id="trailer-url-web"
           class="classic-input"
           type="text"
@@ -356,12 +375,13 @@
           <option value="English, Japanese">English, Japanese</option>
           <option value="Japanese">Japanese</option>
           <option value="English">English</option>
-          <option value="Hindi Japanese">Hindi, Japanese</option>
-          <option value="Hindi English Japanese">
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English, Japanese">
             Hindi, English, Japanese
           </option>
-          <option value="Hindi English">Hindi, English</option>
-          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English">Hindi, English</option>
+          <option value="Hindi, English, Korean">Hindi, English, Korean</option>
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
         </select>
 
         <br />
@@ -475,6 +495,12 @@
           placeholder="Cast"
         />
         <input
+          id="web-imdb-update"
+          class="classic-input"
+          type="text"
+          placeholder="Imdb Rating"
+        />
+        <input
           id="trailer-url-update-web"
           class="classic-input"
           type="text"
@@ -489,12 +515,13 @@
           <option value="English, Japanese">English, Japanese</option>
           <option value="Japanese">Japanese</option>
           <option value="English">English</option>
-          <option value="Hindi Japanese">Hindi, Japanese</option>
-          <option value="Hindi English Japanese">
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English, Japanese">
             Hindi, English, Japanese
           </option>
-          <option value="Hindi English">Hindi, English</option>
-          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English">Hindi, English</option>
+          <option value="Hindi, English, Korean">Hindi, English, Korean</option>
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
         </select>
         <br />
         <br />
@@ -600,6 +627,12 @@
           type="text"
           placeholder="Cast"
         />
+        <input
+          id="imdb-update"
+          class="classic-input"
+          type="text"
+          placeholder="Imdb Rating"
+        />
 
         <input
           id="trailer-url-update"
@@ -629,12 +662,13 @@
           <option value="English, Japanese">English, Japanese</option>
           <option value="Japanese">Japanese</option>
           <option value="English">English</option>
-          <option value="Hindi Japanese">Hindi, Japanese</option>
-          <option value="Hindi English Japanese">
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English, Japanese">
             Hindi, English, Japanese
           </option>
-          <option value="Hindi English">Hindi, English</option>
-          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English">Hindi, English</option>
+          <option value="Hindi, English, Korean">Hindi, English, Korean</option>
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
         </select>
         <br />
         <br />
@@ -774,13 +808,29 @@
           type="text"
           placeholder="Episode Stream Url"
         />
+
         <input
           id="episode-download-url"
           class="classic-input"
           type="text"
           placeholder="Episode Download Url"
         />
-
+        <select
+          class="classic-input drop-down"
+          name="cars"
+          id="language-episode"
+        >
+          <option value="English, Japanese">English, Japanese</option>
+          <option value="Japanese">Japanese</option>
+          <option value="English">English</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+          <option value="Hindi English Japanese">
+            Hindi, English, Japanese
+          </option>
+          <option value="Hindi English">Hindi, English</option>
+          <option value="Hindi English">Hindi, English, Korean</option>
+          <option value="Hindi Japanese">Hindi, Japanese</option>
+        </select>
         <br />
         <br />
 
@@ -831,6 +881,23 @@
           type="text"
           placeholder="Episode Download Url"
         />
+
+        <select
+          class="classic-input drop-down"
+          name="cars"
+          id="language-episode-update"
+        >
+          <option value="English, Japanese">English, Japanese</option>
+          <option value="Japanese">Japanese</option>
+          <option value="English">English</option>
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
+          <option value="Hindi, English, Japanese">
+            Hindi, English, Japanese
+          </option>
+          <option value="Hindi, English">Hindi, English</option>
+          <option value="Hindi, English, Korean">Hindi, English, Korean</option>
+          <option value="Hindi, Japanese">Hindi, Japanese</option>
+        </select>
         <br />
         <br />
 
@@ -862,6 +929,155 @@
           Uploading Series
         </h3>
         <h2 style="margin-left: 10px" id="Uploading-percentage">0.00%</h2>
+      </div>
+    </div>
+
+    <div id="top-treanding-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeTopTreanding()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Top Treanding Anime</h2>
+        <div
+          style="height: 500px; margin: 50px"
+          class="row"
+          id="top-treanding-div"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="addTopTreanding()"
+          class="add-button"
+        >
+          <i data-feather="plus"></i>
+          Add Anime In Top Treanding
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="add-top-treanding-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeAddTopTreanding()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Select anime to add in top treanding</h2>
+
+        <input class="serach-bar" type="text" placeholder="Search Anime" />
+        <div
+          class="row"
+          style="height: 500px; margin: 50px"
+          id="add-top-treanding-div-all-anime"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="resetAddTopTreanding()"
+          class="add-button"
+        >
+          Reset
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="hindi-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeHindi()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Hindi Anime</h2>
+        <div
+          style="height: 500px; margin: 50px"
+          class="row"
+          id="hindi-anime-div"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="addHindi()"
+          class="add-button"
+        >
+          <i data-feather="plus"></i>
+          Add Anime In Hindi
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="add-hindi-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeAddHindi()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Select anime to add in Hindi Anime</h2>
+
+        <input
+          class="serach-bar-hindi"
+          type="text"
+          placeholder="Search Anime"
+        />
+        <div
+          class="row"
+          style="height: 500px; margin: 50px"
+          id="add-hindi-anime-div-all-anime"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="resetAddHindi()"
+          class="add-button"
+        >
+          Reset
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="new-added-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeNewAdded()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">New Added Anime</h2>
+        <div
+          style="height: 500px; margin: 50px"
+          class="row"
+          id="new-added-anime-div"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="addNewAdded()"
+          class="add-button"
+        >
+          <i data-feather="plus"></i>
+          Add Anime In New Added
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="add-new-added-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeAddNewAdded()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Select anime to add in New Anime</h2>
+
+        <input
+          class="serach-bar-new-added"
+          type="text"
+          placeholder="Search Anime"
+        />
+        <div
+          class="row"
+          style="height: 500px; margin: 50px"
+          id="add-new-added-anime-div-all-anime"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="resetAddHindi()"
+          class="add-button"
+        >
+          Reset
+        </button>
+        <div style="height: 50px"></div>
       </div>
     </div>
 

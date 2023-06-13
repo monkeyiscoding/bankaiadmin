@@ -36,6 +36,7 @@ var episodeCount = 1;
 var seasKey = "";
 var webKey = "";
 var sTitle = "";
+var currentOpe = "top_treanding";
 
 function addMovie() {
   var dialog = $("#movie-dialog");
@@ -265,6 +266,7 @@ function uploadMovie() {
   var des = $("#des").val();
   var story = $("#story").val();
   var cast = $("#cast").val();
+  var imdb = $("#imdb").val();
   var errorText = $(".error-text");
   var language = $("#language").val();
   var trailer_url = $("#trailer-url").val();
@@ -289,6 +291,9 @@ function uploadMovie() {
   } else if (cast.length < 4) {
     errorText.html("Enter Cast Names");
     errorText.fadeIn();
+  } else if (imdb.length < 4) {
+    errorText.html("Enter Imdb Rating");
+    errorText.fadeIn();
   } else if (trailer_url.length < 4) {
     errorText.html("Enter Trailer Url");
     errorText.fadeIn();
@@ -312,6 +317,7 @@ function uploadMovie() {
           description: des,
           story: story,
           cast: cast,
+          imdb: imdb,
           key: key,
           language: language,
           download_url: download_url,
@@ -336,6 +342,7 @@ function uploadMovie() {
           description: des,
           story: story,
           cast: cast,
+          imdb: imdb,
           key: key,
           language: language,
           category: "Movie",
@@ -359,6 +366,7 @@ function updateMovie() {
   var des = $("#des-update").val();
   var story = $("#story-update").val();
   var cast = $("#cast-update").val();
+  var imdb = $("#imdb-update").val();
   var errorText = $(".error-text");
   var language = $("#language-update").val();
   var trailer_url = $("#trailer-url-update").val();
@@ -376,6 +384,9 @@ function updateMovie() {
     errorText.fadeIn();
   } else if (cast.length < 4) {
     errorText.html("Enter Cast Names");
+    errorText.fadeIn();
+  } else if (imdb.length < 4) {
+    errorText.html("Enter Imdb Rating");
     errorText.fadeIn();
   } else if (trailer_url.length < 4) {
     errorText.html("Enter Trailer Url");
@@ -399,6 +410,7 @@ function updateMovie() {
           description: des,
           story: story,
           cast: cast,
+          imdb: imdb,
           key: key,
           language: language,
           download_url: download_url,
@@ -423,6 +435,7 @@ function updateMovie() {
           description: des,
           story: story,
           cast: cast,
+          imdb: imdb,
           key: key,
           language: language,
           category: "Movie",
@@ -446,6 +459,7 @@ function uploadSeries() {
   var des = $("#web-des").val();
   var story = $("#web-story").val();
   var cast = $("#web-cast").val();
+  var imdb = $("#web-imdb").val();
   var errorText = $(".error-text");
   var language = $("#web-language").val();
   var trailer_url = $("#trailer-url-web").val();
@@ -468,6 +482,9 @@ function uploadSeries() {
   } else if (cast.length < 4) {
     errorText.html("Enter Cast Names");
     errorText.fadeIn();
+  } else if (imdb.length < 4) {
+    errorText.html("Enter Imdb Rating");
+    errorText.fadeIn();
   } else if (trailer_url.length < 4) {
     errorText.html("Enter Trailer Url");
     errorText.fadeIn();
@@ -486,6 +503,7 @@ function uploadSeries() {
           story: story,
           cast: cast,
           key: key,
+          imdb: imdb,
           language: language,
           category: "Series",
           trailer_url: trailer_url,
@@ -507,6 +525,7 @@ function uploadSeries() {
           description: des,
           story: story,
           cast: cast,
+          imdb: imdb,
           key: key,
           language: language,
           category: "Series",
@@ -530,6 +549,7 @@ function updateSeries() {
   var des = $("#web-des-update").val();
   var story = $("#web-story-update").val();
   var cast = $("#web-cast-update").val();
+  var imdb = $("#web-imdb-update").val();
   var errorText = $(".error-text-update");
   var language = $("#web-language-update").val();
   var trailer_url = $("#trailer-url-update-web").val();
@@ -546,6 +566,9 @@ function updateSeries() {
   } else if (cast.length < 4) {
     errorText.html("Enter Cast Names");
     errorText.fadeIn();
+  } else if (imdb.length < 4) {
+    errorText.html("Enter Imdb Rating");
+    errorText.fadeIn();
   } else if (trailer_url.length < 4) {
     errorText.html("Enter Trailer Url");
     errorText.fadeIn();
@@ -561,6 +584,7 @@ function updateSeries() {
           description: des,
           story: story,
           cast: cast,
+          imdb: imdb,
           key: sKey,
           language: language,
           category: "Series",
@@ -583,6 +607,7 @@ function updateSeries() {
           description: des,
           story: story,
           cast: cast,
+          imdb: imdb,
           key: sKey,
           language: language,
           category: "Series",
@@ -1135,6 +1160,7 @@ function loadMovies() {
       var thumbnail = childSnapshot.val().thumbnail_url;
       var title = childSnapshot.val().title;
       var cast = childSnapshot.val().cast;
+      var imdb = childSnapshot.val().imdb;
       var story = childSnapshot.val().story;
       var des = childSnapshot.val().description;
       var language = childSnapshot.val().language;
@@ -1166,6 +1192,8 @@ function loadMovies() {
         stream_url +
         `\`,\`` +
         download_url +
+        `\`,\`` +
+        imdb +
         `\`)">
       <div style="padding: 0px;" class="anime-card col-xl-3">
       <img  class="anime-poster" src="${poster}" alt="" />
@@ -1194,6 +1222,7 @@ function loadSeries() {
       var des = childSnapshot.val().description;
       var language = childSnapshot.val().language;
       var trailer = childSnapshot.val().trailer_url;
+      var imdb = childSnapshot.val().imdb;
 
       mydiv.innerHTML +=
         `
@@ -1217,6 +1246,8 @@ function loadSeries() {
         language +
         `\`,\`` +
         trailer +
+        `\`,\`` +
+        imdb +
         `\`)"class="anime-poster" src="${poster}" alt="" />
 
       <div class="list-categories">
@@ -1228,6 +1259,18 @@ function loadSeries() {
         `\`,\`` +
         title +
         `\`)" class="menu-drop">Add Seasons</button>
+
+        <button style="margin-top: 20px;" onClick="addOnTop(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        title +
+        `\`,\`` +
+        language +
+        `\`,\`` +
+        des +
+        `\`)" class="menu-drop">Add On Top</button>
       <hr>
     </div>
     </div>
@@ -1235,6 +1278,17 @@ function loadSeries() {
 
        `;
     });
+  });
+}
+
+function addOnTop(key, poster, title, language, des) {
+  var query = firebase.database().ref("Top");
+  query.update({
+    poster: poster,
+    title: title,
+    key: key,
+    language: language,
+    description: des,
   });
 }
 
@@ -1250,7 +1304,8 @@ function openSeries(
   story,
   cast,
   language,
-  trailer
+  trailer,
+  imdb
 ) {
   localStorage.setItem("seriesKey", key);
   sKey = key;
@@ -1276,6 +1331,7 @@ function openSeries(
   document.getElementById("web-des-update").value = des;
   document.getElementById("web-story-update").value = story;
   document.getElementById("web-cast-update").value = cast;
+  document.getElementById("web-imdb-update").value = imdb;
   document.getElementById("web-language-update").value = language;
   document.getElementById("trailer-url-update-web").value = trailer;
 }
@@ -1291,7 +1347,8 @@ function openMovie(
   language,
   trailer,
   stream_url,
-  download_url
+  download_url,
+  imdb
 ) {
   localStorage.setItem("seriesKey", key);
   oldMovieKey = key;
@@ -1317,6 +1374,7 @@ function openMovie(
   document.getElementById("des-update").value = des;
   document.getElementById("story-update").value = story;
   document.getElementById("cast-update").value = cast;
+  document.getElementById("imdb-update").value = imdb;
   document.getElementById("language-update").value = language;
   document.getElementById("trailer-url-update").value = trailer;
   document.getElementById("stream-url-update").value = stream_url;
@@ -1382,11 +1440,11 @@ function addSeasonNew() {
   var newSkey = myRef.key;
   firebase
     .database()
-    .ref("All_Anime/" + seasonKey + "/seasons/" + newSkey)
+    .ref("All_Anime/" + seasonKey + "/seasons/" + title)
     .update(
       {
         title: title,
-        key: newSkey,
+        key: title,
       },
       function (error) {
         if (error) {
@@ -1398,11 +1456,11 @@ function addSeasonNew() {
 
   firebase
     .database()
-    .ref("Series/" + seasonKey + "/seasons/" + newSkey)
+    .ref("Series/" + seasonKey + "/seasons/" + title)
     .update(
       {
         title: title,
-        key: newSkey,
+        key: title,
       },
       function (error) {
         if (error) {
@@ -1450,6 +1508,7 @@ function addEpisodeNew() {
   var title = $("#episode-title").val();
   var stream = $("#episode-stream-url").val();
   var download = $("#episode-download-url").val();
+  var language = $("#language-episode").val();
 
   var myRef = firebase.database().ref().push();
 
@@ -1476,6 +1535,7 @@ function addEpisodeNew() {
           stream_url: stream,
           download_url: download,
           key: epKey,
+          language: language,
         },
         function (error) {
           if (error) {
@@ -1494,6 +1554,7 @@ function addEpisodeNew() {
           stream_url: stream,
           download_url: download,
           key: epKey,
+          language: language,
         },
         function (error) {
           if (error) {
@@ -1528,6 +1589,7 @@ function showEpisodes() {
         var epkey = childSnapshot.val().key;
         var stream = childSnapshot.val().stream_url;
         var download = childSnapshot.val().download_url;
+        var language = childSnapshot.val().language;
 
         mydiv.innerHTML +=
           `
@@ -1543,6 +1605,8 @@ function showEpisodes() {
           download +
           `\`,\`` +
           epkey +
+          `\`,\`` +
+          language +
           `\`
             )"
             class="anime-card"
@@ -1622,12 +1686,13 @@ function relodeEpisode() {
 
 var oldEpKey = "";
 
-function updateEpisodeDialog(title, stream, download, epKey) {
+function updateEpisodeDialog(title, stream, download, epKey, language) {
   oldEpKey = epKey;
   $("#add-episode-dialog-update").fadeIn();
   $("#episode-title-update").val(title);
   $("#episode-stream-url-update").val(stream);
   $("#episode-download-url-update").val(download);
+  $("#language-episode-update").val(language);
 
   var vid = document.getElementById("ep-vid-div");
 
@@ -1644,6 +1709,7 @@ function updateEpisode() {
   var title = $("#episode-title-update").val();
   var stream = $("#episode-stream-url-update").val();
   var download = $("#episode-download-url-update").val();
+  var language = $("#language-episode-update").val();
 
   var myRef = firebase.database().ref().push();
 
@@ -1670,6 +1736,7 @@ function updateEpisode() {
           stream_url: stream,
           download_url: download,
           key: epKey,
+          language: language,
         },
         function (error) {
           if (error) {
@@ -1688,6 +1755,7 @@ function updateEpisode() {
           stream_url: stream,
           download_url: download,
           key: epKey,
+          language: language,
         },
         function (error) {
           if (error) {
@@ -1702,4 +1770,423 @@ function updateEpisode() {
         }
       );
   }
+}
+
+function openTopTreanding() {
+  $("#top-treanding-dialog").fadeIn();
+  loadTopTreandingAnime();
+  currentOpe = "top_treanding";
+}
+
+function closeTopTreanding() {
+  $("#top-treanding-dialog").fadeOut();
+  var mydiv = document.getElementById("top-treanding-div");
+  mydiv.innerHTML = ``;
+}
+
+function closeAddTopTreanding() {
+  $("#add-top-treanding-dialog").fadeOut();
+  var mydiv = document.getElementById("add-top-treanding-div-all-anime");
+  mydiv.innerHTML = ``;
+}
+
+function addTopTreanding() {
+  $("#add-top-treanding-dialog").fadeIn();
+
+  loadAllAnime();
+}
+
+$(".serach-bar").on("keyup", function (e) {
+  if (e.key === "Enter" || e.keyCode === 13) {
+    var x = $(".serach-bar").val();
+
+    loadSearchAnime(x);
+  }
+});
+$(".serach-bar-hindi").on("keyup", function (e) {
+  if (e.key === "Enter" || e.keyCode === 13) {
+    var x = $(".serach-bar-hindi").val();
+
+    loadSearchAnime(x);
+  }
+});
+$(".serach-bar-new-added").on("keyup", function (e) {
+  if (e.key === "Enter" || e.keyCode === 13) {
+    var x = $(".serach-bar-new-added").val();
+
+    loadSearchAnime(x);
+  }
+});
+
+function loadTopTreandingAnime() {
+  var mydiv = document.getElementById("top-treanding-div");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("top_treandings");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var new_key = childSnapshot.val().new_key;
+
+      mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="removeAnime(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        new_key +
+        `\`,)" class="menu-drop">Remove</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+    });
+  });
+}
+
+function loadAllAnime() {
+  var mydiv = document.getElementById("add-top-treanding-div-all-anime");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("All_Anime");
+  query.once("value", function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+
+      mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="addNewAnime(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`)" class="menu-drop">Add</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+    });
+  });
+}
+
+function loadSearchAnime(x) {
+  var mydiv = document.getElementById("add-top-treanding-div-all-anime");
+
+  if (currentOpe == "hindi") {
+    mydiv = document.getElementById("add-hindi-anime-div-all-anime");
+  }
+
+  if (currentOpe == "new_added") {
+    mydiv = document.getElementById("add-new-added-anime-div-all-anime");
+  }
+
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("All_Anime");
+  query.once("value", function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var title = childSnapshot.val().title;
+
+      var newT = title.toLowerCase();
+      var newX = x.toLowerCase();
+
+      if (newT.includes(newX)) {
+        mydiv.innerHTML +=
+          `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="addNewAnime(\`` +
+          key +
+          `\`,\`` +
+          poster +
+          `\`)" class="menu-drop">Add</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+      }
+    });
+  });
+}
+
+function addNewAnime(key, poster) {
+  var new_key = firebase.database().ref("top_treandings").push().key;
+  var query = firebase.database().ref("top_treandings/" + new_key);
+
+  query.update({
+    key: key,
+    poster_url: poster,
+    new_key: new_key,
+  });
+}
+
+function removeAnime(key, poster, new_key) {
+  var query = firebase.database().ref("top_treandings/" + new_key);
+
+  query.remove();
+}
+
+//
+// hindi
+
+function openHindi() {
+  $("#hindi-anime-dialog").fadeIn();
+  loadHindiAnime();
+  currentOpe = "hindi";
+}
+
+function addHindi() {
+  $("#add-hindi-anime-dialog").fadeIn();
+
+  loadAllAnimeHindi();
+}
+function loadAllAnimeHindi() {
+  var mydiv = document.getElementById("add-hindi-anime-div-all-anime");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("All_Anime");
+  query.once("value", function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var language = childSnapshot.val().language;
+      var thumbnail = childSnapshot.val().thumbnail_url;
+
+      if (language.toLowerCase().includes("hindi")) {
+        mydiv.innerHTML +=
+          `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="addNewHindiAnime(\`` +
+          key +
+          `\`,\`` +
+          poster +
+          `\`,\`` +
+          thumbnail +
+          `\`)" class="menu-drop">Add</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+      }
+    });
+  });
+}
+
+function loadHindiAnime() {
+  var mydiv = document.getElementById("hindi-anime-div");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("Hindi");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var new_key = childSnapshot.val().new_key;
+
+      mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="removeHindiAnime(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        new_key +
+        `\`,)" class="menu-drop">Remove</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+    });
+  });
+}
+function addNewHindiAnime(key, poster, thumbnail) {
+  var new_key = firebase.database().ref("Hindi").push().key;
+  var query = firebase.database().ref("Hindi/" + new_key);
+
+  query.update({
+    key: key,
+    poster_url: poster,
+    thumbnail_url: thumbnail,
+    new_key: new_key,
+  });
+}
+
+function closeHindi() {
+  $("#hindi-anime-dialog").fadeOut();
+  var mydiv = document.getElementById("hindi-anime-div");
+  mydiv.innerHTML = ``;
+}
+
+function closeAddHindi() {
+  $("#add-hindi-anime-dialog").fadeOut();
+  var mydiv = document.getElementById("add-hindi-anime-div-all-anime");
+  mydiv.innerHTML = ``;
+}
+
+function removeHindiAnime(key, poster, new_key) {
+  var query = firebase.database().ref("Hindi/" + new_key);
+
+  query.remove();
+}
+
+// new added anime
+
+function openNewAdded() {
+  $("#new-added-anime-dialog").fadeIn();
+  loadNewAddedAnime();
+  currentOpe = "new_added";
+}
+
+function addNewAdded() {
+  $("#add-new-added-anime-dialog").fadeIn();
+
+  loadAllNewAddedAnime();
+}
+
+function loadAllNewAddedAnime() {
+  var mydiv = document.getElementById("add-new-added-anime-div-all-anime");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("All_Anime");
+  query.once("value", function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var language = childSnapshot.val().language;
+      var thumbnail = childSnapshot.val().thumbnail_url;
+
+      mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="addNewAddedAnime(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        thumbnail +
+        `\`)" class="menu-drop">Add</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+    });
+  });
+}
+
+function loadNewAddedAnime() {
+  var mydiv = document.getElementById("new-added-anime-div");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("new_added");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var new_key = childSnapshot.val().new_key;
+
+      mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="removeHindiAnime(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        new_key +
+        `\`,)" class="menu-drop">Remove</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+    });
+  });
+}
+
+function addNewAddedAnime(key, poster, thumbnail) {
+  var new_key = firebase.database().ref("new_added").push().key;
+  var query = firebase.database().ref("new_added/" + new_key);
+
+  query.update({
+    key: key,
+    poster_url: poster,
+    thumbnail_url: thumbnail,
+    new_key: new_key,
+  });
+}
+
+function closeNewAdded() {
+  $("#new-added-anime-dialog").fadeOut();
+  var mydiv = document.getElementById("hindi-anime-div");
+  mydiv.innerHTML = ``;
+}
+
+function closeAddNewAdded() {
+  $("#add-new-added-anime-dialog").fadeOut();
+  var mydiv = document.getElementById("add-new-added-anime-div-all-anime");
+  mydiv.innerHTML = ``;
 }
