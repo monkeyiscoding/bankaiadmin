@@ -51,6 +51,19 @@
             <h6 class="menu-title">New Added Anime</h6>
           </div>
         </a>
+
+        <a href="#" class="menu-a" onclick="openAction()">
+          <div id="Users" class="menu-option">
+            <i data-feather="user"></i>
+            <h6 class="menu-title">Action Adventure Anime</h6>
+          </div>
+        </a>
+        <a href="#" class="menu-a" onclick="openEcchi()">
+          <div id="Users" class="menu-option">
+            <i data-feather="user"></i>
+            <h6 class="menu-title">Action Ecchi Anime</h6>
+          </div>
+        </a>
       </div>
 
       <div class="content-div">
@@ -253,6 +266,17 @@
           <option value="Hindi, English, Korean">Hindi, English, Korean</option>
           <option value="Hindi, Japanese">Hindi, Japanese</option>
         </select>
+
+        <select class="classic-input drop-down" name="cars" id="genre">
+          <option value="Action">Action</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Drama">Drama</option>
+          <option value="Fantsy">Fantsy</option>
+          <option value="Comady">Comady</option>
+          <option value="Horror">Horror</option>
+          <option value="Romance">Romance</option>
+          <option value="Ecchi">Ecchi</option>
+        </select>
         <br />
         <br />
 
@@ -383,7 +407,16 @@
           <option value="Hindi, English, Korean">Hindi, English, Korean</option>
           <option value="Hindi, Japanese">Hindi, Japanese</option>
         </select>
-
+        <select class="classic-input drop-down" name="cars" id="web-genre">
+          <option value="Action">Action</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Drama">Drama</option>
+          <option value="Fantsy">Fantsy</option>
+          <option value="Comady">Comady</option>
+          <option value="Horror">Horror</option>
+          <option value="Romance">Romance</option>
+          <option value="Ecchi">Ecchi</option>
+        </select>
         <br />
         <br />
         <h5 class="error-text">Upload poster image</h5>
@@ -522,6 +555,21 @@
           <option value="Hindi, English">Hindi, English</option>
           <option value="Hindi, English, Korean">Hindi, English, Korean</option>
           <option value="Hindi, Japanese">Hindi, Japanese</option>
+        </select>
+
+        <select
+          class="classic-input drop-down"
+          name="cars"
+          id="web-genre-update"
+        >
+          <option value="Action">Action</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Drama">Drama</option>
+          <option value="Fantsy">Fantsy</option>
+          <option value="Comady">Comady</option>
+          <option value="Horror">Horror</option>
+          <option value="Romance">Romance</option>
+          <option value="Ecchi">Ecchi</option>
         </select>
         <br />
         <br />
@@ -669,6 +717,17 @@
           <option value="Hindi, English">Hindi, English</option>
           <option value="Hindi, English, Korean">Hindi, English, Korean</option>
           <option value="Hindi, Japanese">Hindi, Japanese</option>
+        </select>
+
+        <select class="classic-input drop-down" name="cars" id="genre-update">
+          <option value="Action">Action</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Drama">Drama</option>
+          <option value="Fantsy">Fantsy</option>
+          <option value="Comady">Comady</option>
+          <option value="Horror">Horror</option>
+          <option value="Romance">Romance</option>
+          <option value="Ecchi">Ecchi</option>
         </select>
         <br />
         <br />
@@ -1073,6 +1132,109 @@
         <button
           style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
           onclick="resetAddHindi()"
+          class="add-button"
+        >
+          Reset
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="action-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeAction()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Action Adventure Anime</h2>
+        <div
+          style="height: 500px; margin: 50px"
+          class="row"
+          id="action-anime-div"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="addAction()"
+          class="add-button"
+        >
+          <i data-feather="plus"></i>
+          Add Anime Action Adventure
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="add-action-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeActionAdded()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">
+          Select anime to add in Action Adventure
+        </h2>
+
+        <input
+          class="serach-bar-action"
+          type="text"
+          placeholder="Search Anime"
+        />
+        <div
+          class="row"
+          style="height: 500px; margin: 50px"
+          id="add-action-anime-div-all-anime"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="resetAddAction()"
+          class="add-button"
+        >
+          Reset
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+    <div id="ecchi-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeEcchi()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Action Ecchi Anime</h2>
+        <div
+          style="height: 500px; margin: 50px"
+          class="row"
+          id="ecchi-anime-div"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="addEcchi()"
+          class="add-button"
+        >
+          <i data-feather="plus"></i>
+          Add Anime Ecchi
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="add-ecchi-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeEcchiAdded()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Select anime to add in Ecchi</h2>
+
+        <input
+          class="serach-bar-ecchi"
+          type="text"
+          placeholder="Search Anime"
+        />
+        <div
+          class="row"
+          style="height: 500px; margin: 50px"
+          id="add-ecchi-anime-div-all-anime"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="resetAddEcchi()"
           class="add-button"
         >
           Reset
