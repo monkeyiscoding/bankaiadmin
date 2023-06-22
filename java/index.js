@@ -730,7 +730,6 @@ function uploaData(key) {
               if (error) {
                 alert("Something went wrong try again");
               } else {
-                location.reload();
               }
             }
           );
@@ -987,7 +986,8 @@ function uploaDataSeries(key) {
               if (error) {
                 alert("Something went wrong try again");
               } else {
-                location.reload();
+                $("#uploading-dialog-progress").fadeOut();
+                var dialog = $("#series-dialog").fadeOut();
               }
             }
           );
@@ -1162,11 +1162,11 @@ function selectedMovie() {
 }
 
 function loadMovies() {
+  var mydiv = document.getElementById("movie-list");
+  mydiv.innerHTML = ``;
   var query = firebase.database().ref("Movies");
-  query.once("value", function (snapshot) {
+  query.on("value", function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
-      var mydiv = document.getElementById("movie-list");
-
       var poster = childSnapshot.val().poster_url;
       var key = childSnapshot.val().key;
       var thumbnail = childSnapshot.val().thumbnail_url;
@@ -1184,8 +1184,7 @@ function loadMovies() {
       var category = childSnapshot.val().category;
 
       mydiv.innerHTML +=
-        ` <div  style="padding: 0px;" class="anime-card col-xl-3">
-        <img  onClick="openMovie(\`` +
+        ` <div  style="padding: 0px;" class="anime-card col-xl-3"onClick="openMovie(\`` +
         key +
         `\`,\`` +
         poster +
@@ -1211,7 +1210,8 @@ function loadMovies() {
         imdb +
         `\`,\`` +
         genre +
-        `\`)"class="anime-poster" src="${poster}" alt="" />
+        `\`)">
+        <img style="width: 100px; height: 160px;"class="anime-poster" src="${poster}" alt="" />
   
         <div class="list-categories">
         <br>
@@ -1272,7 +1272,7 @@ function loadMovies() {
 
 function loadSeries() {
   var query = firebase.database().ref("Series");
-  query.once("value", function (snapshot) {
+  query.on("value", function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
       var mydiv = document.getElementById("movie-list");
 
@@ -1294,7 +1294,7 @@ function loadSeries() {
         `
 
     <div  style="padding: 0px;" class="anime-card col-xl-3">
-      <img  onClick="openSeries(\`` +
+      <img style="width: 100px; height: 160px;" onClick="openSeries(\`` +
         key +
         `\`,\`` +
         poster +
