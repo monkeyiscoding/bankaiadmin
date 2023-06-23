@@ -1163,9 +1163,10 @@ function selectedMovie() {
 
 function loadMovies() {
   var mydiv = document.getElementById("movie-list");
-  mydiv.innerHTML = ``;
+
   var query = firebase.database().ref("Movies");
   query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
     snapshot.forEach(function (childSnapshot) {
       var poster = childSnapshot.val().poster_url;
       var key = childSnapshot.val().key;
@@ -1271,11 +1272,12 @@ function loadMovies() {
 }
 
 function loadSeries() {
+  var mydiv = document.getElementById("movie-list");
+
   var query = firebase.database().ref("Series");
   query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
     snapshot.forEach(function (childSnapshot) {
-      var mydiv = document.getElementById("movie-list");
-
       var poster = childSnapshot.val().poster_url;
       var key = childSnapshot.val().key;
       var poster = childSnapshot.val().poster_url;
