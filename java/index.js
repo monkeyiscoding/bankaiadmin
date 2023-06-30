@@ -1711,7 +1711,7 @@ function showEpisodes() {
   $("#seasons-overview-dialog").fadeIn();
   $("#episode-title").html(title);
   var mydiv = document.getElementById("episodes-list");
-  mydiv.innerHTML = "";
+  mydiv.innerHTML = ``;
   var query = firebase
     .database()
     .ref("Series/" + seasonKey + "/seasons/" + seasKey + "/episodes/");
@@ -1719,18 +1719,22 @@ function showEpisodes() {
     if (snapshot.exists()) {
       snapshot.forEach(function (childSnapshot) {
         episodeCount++;
-        var mydiv = document.getElementById("episodes-list");
-
         var title = childSnapshot.val().title;
         var epkey = childSnapshot.val().key;
         var stream = childSnapshot.val().stream_url;
         var download = childSnapshot.val().download_url;
         var language = childSnapshot.val().language;
-
+        var mydiv = document.getElementById("episodes-list");
         mydiv.innerHTML +=
           `
+
             <div
-            onClick="updateEpisodeDialog(
+            
+            class="anime-card"
+            style="text-align: center; padding-top: 50px;  justify-content: center; align-items: center;"
+          >
+
+            <h4 onClick="updateEpisodeDialog(
               \`` +
           title +
           `\`,
@@ -1744,15 +1748,18 @@ function showEpisodes() {
           `\`,\`` +
           language +
           `\`
-            )"
-            class="anime-card"
-            style="text-align: center; padding-top: 50px;  justify-content: center; align-items: center;"
-          >
-
-            <h4 id="ep-numebr">${title}</h4>
+            )" id="ep-numebr">${title}</h4>
             <h6 id="ep-title" style="color: gray">${sTitle}</h6>
+               <div class="list-categories">
+            <br>
+            <button style="margin-top: 20px; margin-bottom: 20px;" onClick="removeEpisode(\`` +
+            epkey +
+            `\`)" class="menu-drop">Remove</button>
+      
           </div>
-        
+
+          </div>
+     
         `;
       });
     } else {
@@ -1761,6 +1768,23 @@ function showEpisodes() {
       episodeCount = 1;
     }
   });
+}
+
+function removeEpisode(epKey){
+  var query = firebase
+  .database()
+  .ref("Series/" + seasonKey + "/seasons/" + seasKey + "/episodes/"+epKey);
+
+  var query2 = firebase
+  .database()
+  .ref("All_Anime/" + seasonKey + "/seasons/" + seasKey + "/episodes/"+epKey);
+
+  query.remove();
+  query2.remove();
+  var mydiv = document.getElementById("episodes-list");
+  mydiv.innerHTML = ``;
+  showEpisodes();
+
 }
 
 function relodeEpisode() {

@@ -17,12 +17,13 @@ body {
 
 .nav-bar {
   width: 300px;
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
+  scroll-behavior: auto;
   background-color: var(--secondry-color);
   padding-left: 20px;
   box-shadow: 10px 10px 30px black;
   padding-top: 30px;
-  position: fixed;
 }
 
 .menu-option-selected {
