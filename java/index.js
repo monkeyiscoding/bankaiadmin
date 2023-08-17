@@ -1296,31 +1296,32 @@ function loadSeries() {
         `
 
     <div  style="padding: 0px;" class="anime-card col-xl-3">
-      <img style="width: 100px; height: 160px;" onClick="openSeries(\`` +
-        key +
-        `\`,\`` +
-        poster +
-        `\`,\`` +
-        thumbnail +
-        `\`,\`` +
-        title +
-        `\`,\`` +
-        des +
-        `\`,\`` +
-        story +
-        `\`,\`` +
-        cast +
-        `\`,\`` +
-        language +
-        `\`,\`` +
-        trailer +
-        `\`,\`` +
-        imdb +
-        `\`,\`` +
-        category +
-        `\`,\`` +
-        genre +
-        `\`)"class="anime-poster" src="${poster}" alt="" />
+      <img onClick="openSeries(\`` +
+      key +
+      `\`,\`` +
+      poster +
+      `\`,\`` +
+      thumbnail +
+      `\`,\`` +
+      title +
+      `\`,\`` +
+      des +
+      `\`,\`` +
+      story +
+      `\`,\`` +
+      cast +
+      `\`,\`` +
+      language +
+      `\`,\`` +
+      trailer +
+      `\`,\`` +
+      imdb +
+      `\`,\`` +
+      category +
+      `\`,\`` +
+      genre +
+      `\`)" style="width: 100px; height: 160px;" class="anime-poster" src="${poster}" alt="" />
+
 
       <div class="list-categories">
       <br>
@@ -2626,4 +2627,75 @@ function removeActionAnime(key, poster, new_key) {
   var query = firebase.database().ref("Ecchi/" + new_key);
 
   query.remove();
+}
+
+
+
+
+
+loadUsers();
+loadPUsers();
+loadSeriesTo();
+loadMovie();
+
+
+
+function loadUsers() {
+  var count = 0
+  var mydiv = document.getElementById("total-users");
+
+  var query = firebase.database().ref("Users");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+     count++
+     mydiv.innerHTML = count
+    });
+  });
+}
+
+function loadPUsers() {
+  var count = 0
+  var mydiv = document.getElementById("premium-users");
+
+  var query = firebase.database().ref("Users");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+
+     var a = childSnapshot.val().subscription
+
+     if(a == "pro"){
+      count++
+     }
+     mydiv.innerHTML = count
+    });
+  });
+}
+function loadSeriesTo() {
+  var count = 0
+  var mydiv = document.getElementById("total-series");
+
+  var query = firebase.database().ref("Series");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+     count++
+     mydiv.innerHTML = count
+    });
+  });
+}
+
+function loadMovie() {
+  var count = 0
+  var mydiv = document.getElementById("total-movies");
+
+  var query = firebase.database().ref("Movies");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+     count++
+     mydiv.innerHTML = count
+    });
+  });
 }

@@ -472,7 +472,7 @@ a.fill-div {
   position: absolute;
   opacity: 0;
   overflow: hidden;
-  width: 150px;
+  width: 450px;
   background-color: var(--secondry-color);
   transition: opacity 300ms ease;
   box-shadow: 5px 5px 10px black;
