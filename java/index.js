@@ -1964,6 +1964,7 @@ $(".serach-bar").on("keyup", function (e) {
     loadSearchAnime(x);
   }
 });
+
 $(".serach-bar-hindi").on("keyup", function (e) {
   if (e.key === "Enter" || e.keyCode === 13) {
     var x = $(".serach-bar-hindi").val();
@@ -2696,6 +2697,56 @@ function loadMovie() {
     snapshot.forEach(function (childSnapshot) {
      count++
      mydiv.innerHTML = count
+    });
+  });
+}
+
+
+
+
+$("#search-view-0").on("keyup", function (e) {
+  if (e.key === "Enter" || e.keyCode === 13) {
+    var x = $("#search-view-0").val();
+    search(x);
+  }
+});
+
+function search(x) {
+  var mydiv = document.getElementById("search-list");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("All_Anime");
+  query.once("value", function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var title = childSnapshot.val().title;
+
+      var newT = title.toLowerCase();
+      var newX = x.toLowerCase();
+
+      if(newT.includes(newX)) {
+        mydiv.innerHTML +=
+          `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="addNewAnime(\`` +
+          key +
+          `\`,\`` +
+          poster +
+          `\`)" class="menu-drop">Add</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+      }
     });
   });
 }
