@@ -61,7 +61,13 @@
         <a href="#" class="menu-a" onclick="openEcchi()">
           <div id="Users" class="menu-option">
             <i data-feather="user"></i>
-            <h6 class="menu-title">Action Ecchi Anime</h6>
+            <h6 class="menu-title">Ecchi Anime</h6>
+          </div>
+        </a>
+        <a href="#" class="menu-a" onclick="openTopMovie()">
+          <div id="Users" class="menu-option">
+            <i data-feather="user"></i>
+            <h6 class="menu-title">Anime Movies</h6>
           </div>
         </a>
       </div>
@@ -1169,6 +1175,7 @@
         <div style="height: 50px"></div>
       </div>
     </div>
+
     <div id="ecchi-anime-dialog" class="dialog">
       <div class="add-movie-div top-treanding">
         <div onclick="closeEcchi()" class="close-dialog">
@@ -1219,6 +1226,61 @@
         <div style="height: 50px"></div>
       </div>
     </div>
+
+  
+    <!-- anime movie -->
+    <div id="movie-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeTopMovie()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Action Top Movie Anime</h2>
+        <div
+          style="height: 500px; margin: 50px"
+          class="row"
+          id="movie-anime-div"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="addTopMovie()"
+          class="add-button"
+        >
+          <i data-feather="plus"></i>
+          Add Top Movie
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+    <div id="add-movie-anime-dialog" class="dialog">
+      <div class="add-movie-div top-treanding">
+        <div onclick="closeToMovieAdded()" class="close-dialog">
+          <i style="color: black; margin-top: 20px" data-feather="x"></i>
+        </div>
+        <h2 style="padding-top: 50px">Select anime to add in Top Movie</h2>
+
+        <input
+          class="serach-bar-movie"
+          type="text"
+          placeholder="Search Anime"
+        />
+        <div
+          class="row"
+          style="height: 500px; margin: 50px"
+          id="add-movie-anime-div-all-anime"
+        ></div>
+        <button
+          style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
+          onclick="resetAddTopMovie()"
+          class="add-button"
+        >
+          Reset
+        </button>
+        <div style="height: 50px"></div>
+      </div>
+    </div>
+
+
 
     <script>
       feather.replace();

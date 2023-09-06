@@ -2582,7 +2582,7 @@ function loadEcchiAnime() {
       <br>
 
 
-      <button onClick="removeActionAnime(\`` +
+      <button onClick="removeEcchiAnime(\`` +
         key +
         `\`,\`` +
         poster +
@@ -2624,7 +2624,7 @@ function closeEcchiAdded() {
   mydiv.innerHTML = ``;
 }
 
-function removeActionAnime(key, poster, new_key) {
+function removeEcchiAnime(key, poster, new_key) {
   var query = firebase.database().ref("Ecchi/" + new_key);
 
   query.remove();
@@ -2673,6 +2673,7 @@ function loadPUsers() {
     });
   });
 }
+
 function loadSeriesTo() {
   var count = 0
   var mydiv = document.getElementById("total-series");
@@ -2750,3 +2751,132 @@ function search(x) {
     });
   });
 }
+
+
+
+
+// Top Movie anime
+function openTopMovie() {
+  $("#movie-anime-dialog").fadeIn();
+  loadTopMovieAnime();
+  currentOpe = "action";
+}
+
+function addTopMovie() {
+  $("#add-movie-anime-dialog").fadeIn();
+
+  loadAllMovieAnime();
+}
+
+function loadAllMovieAnime() {
+  var mydiv = document.getElementById("add-movie-anime-div-all-anime");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("Movies");
+  query.once("value", function (snapshot) {
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var language = childSnapshot.val().language;
+      var thumbnail = childSnapshot.val().thumbnail_url;
+      var category = childSnapshot.val().category;
+
+
+
+      mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="addTopMovieAnime(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        thumbnail +
+        `\`,\`` +
+        category +
+        `\`)" class="menu-drop">Add</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+    });
+  });
+}
+
+function loadTopMovieAnime() {
+  var mydiv = document.getElementById("movie-anime-div");
+  mydiv.innerHTML = ``;
+  var query = firebase.database().ref("top_movies");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var new_key = childSnapshot.val().new_key;
+
+      mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img class="anime-poster" src="${poster}" alt="" />
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="removeTopMovieAnime(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        new_key +
+        `\`,)" class="menu-drop">Remove</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+    });
+  });
+}
+
+function addTopMovieAnime(key, poster, thumbnail, category) {
+  var new_key = firebase.database().ref("top_movies").push().key;
+  var query = firebase.database().ref("top_movies/" + new_key);
+
+  query.update({
+    key: key,
+    poster_url: poster,
+    thumbnail_url: thumbnail,
+    new_key: new_key,
+    category: category,
+  });
+}
+
+function closeTopMovie() {
+  $("#movie-anime-dialog").fadeOut();
+  var mydiv = document.getElementById("movie-anime-div");
+  mydiv.innerHTML = ``;
+}
+
+function closeTopMovieAdded() {
+  $("#add-movie-anime-dialog").fadeOut();
+  var mydiv = document.getElementById("add-movie-anime-div-all-anime");
+  mydiv.innerHTML = ``;
+}
+
+function removeTopMovieAnime(key, poster, new_key) {
+  var query = firebase.database().ref("top_movies/" + new_key);
+
+  query.remove();
+}
+
