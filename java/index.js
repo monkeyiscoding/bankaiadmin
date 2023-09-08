@@ -2645,7 +2645,7 @@ function loadUsers() {
   var count = 0
   var mydiv = document.getElementById("total-users");
 
-  var query = firebase.database().ref("Users");
+  var query = firebase.database().ref("Guest");
   query.on("value", function (snapshot) {
     mydiv.innerHTML = ``;
     snapshot.forEach(function (childSnapshot) {
@@ -2659,7 +2659,7 @@ function loadPUsers() {
   var count = 0
   var mydiv = document.getElementById("premium-users");
 
-  var query = firebase.database().ref("Users");
+  var query = firebase.database().ref("Guest");
   query.on("value", function (snapshot) {
     mydiv.innerHTML = ``;
     snapshot.forEach(function (childSnapshot) {
