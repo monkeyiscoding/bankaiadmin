@@ -16,6 +16,47 @@ var dataRef = firebase.database().ref("All");
 //     name : "dfdfd",
 // })
 
+checkLogin()
+
+function checkLogin (){
+  var login = localStorage.getItem("login")
+  if(login != "true"){
+    window.location.href = "Login.html";
+  }
+}
+
+
+loginAccess();
+
+function loginAccess(){
+  var username = localStorage.getItem("username")
+  var dataRef = firebase.database().ref("Admin/Users/"+username);
+
+
+  dataRef.on("value", function (snapshot) {
+      if(snapshot.exists()){
+    
+          var access = snapshot.val().access
+    
+          if(access != "true"){
+              $("#ban-anime-dialog").fadeIn()
+          }
+          else{
+            $("#ban-anime-dialog").fadeOut()
+          }
+  
+      }
+
+      else{
+        $("#ban-anime-dialog").fadeIn()
+      
+      }
+
+      
+    });
+  
+}
+
 $("#uploading-dialog-prog").fadeIn();
 var poster = false;
 var thumbnail = false;
@@ -2139,6 +2180,13 @@ $(".serach-bar-action").on("keyup", function (e) {
   }
 });
 
+$(".serach-bar-ecchi").on("keyup", function (e) {
+  if (e.key === "Enter" || e.keyCode === 13) {
+    var x = $(".serach-bar-ecchi").val();
+
+    loadSearchAnime(x);
+  }
+});
 function loadTopTreandingAnime() {
   var mydiv = document.getElementById("top-treanding-div");
   mydiv.innerHTML = ``;
@@ -2227,6 +2275,10 @@ function loadSearchAnime(x) {
 
   if (currentOpe == "action") {
     mydiv = document.getElementById("add-action-anime-div-all-anime");
+  }
+
+  if (currentOpe == "ecchi") {
+    mydiv = document.getElementById("add-ecchi-anime-div-all-anime");
   }
 
   mydiv.innerHTML = ``;
@@ -2662,7 +2714,7 @@ function removeActionAnime(key, poster, new_key) {
 function openEcchi() {
   $("#ecchi-anime-dialog").fadeIn();
   loadEcchiAnime();
-  currentOpe = "action";
+  currentOpe = "ecchi";
 }
 
 function addEcchi() {
@@ -2682,8 +2734,9 @@ function loadAllEcchiAnime() {
       var language = childSnapshot.val().language;
       var thumbnail = childSnapshot.val().thumbnail_url;
       var category = childSnapshot.val().category;
+      var genre = childSnapshot.val().genre;
 
-      mydiv.innerHTML +=
+           mydiv.innerHTML +=
         `
 
     <div  style="padding: 0px;" class="anime-card col-xl-3">
@@ -2708,6 +2761,8 @@ function loadAllEcchiAnime() {
 
 
        `;
+      
+   
     });
   });
 }
