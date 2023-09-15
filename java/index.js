@@ -470,7 +470,7 @@ function uploadSeries() {
   var errorText = $(".error-text");
   var language = $("#web-language").val();
   var trailer_url = $("#trailer-url-web").val();
-
+  var status = $("#web-status-update").val();
   if (!posterWeb) {
     errorText.html("Upload Series Poster");
     errorText.fadeIn();
@@ -515,6 +515,7 @@ function uploadSeries() {
           language: language,
           category: "Series",
           trailer_url: trailer_url,
+          status: status,
         },
         function (error) {
           if (error) {
@@ -539,6 +540,7 @@ function uploadSeries() {
           language: language,
           category: "Series",
           trailer_url: trailer_url,
+          status: status,
         },
         function (error) {
           if (error) {
@@ -563,6 +565,8 @@ function updateSeries() {
   var errorText = $(".error-text-update");
   var language = $("#web-language-update").val();
   var trailer_url = $("#trailer-url-update-web").val();
+  var status = $("#web-status-update").val();
+
 
   if (title.length < 4) {
     errorText.html("Enter Title");
@@ -600,6 +604,7 @@ function updateSeries() {
           language: language,
           category: "Series",
           trailer_url: trailer_url,
+          status: status,
         },
         function (error) {
           if (error) {
@@ -624,6 +629,7 @@ function updateSeries() {
           language: language,
           category: "Series",
           trailer_url: trailer_url,
+          status: status,
         },
         function (error) {
           if (error) {
@@ -1058,7 +1064,7 @@ function updateDataSeries(key) {
                   alert("Something went wrong try again");
                 } else {
                   if (!thumbnailWebUpdate) {
-                    location.reload();
+                    $("#series-dialog-update").fadeOut();
                   }
                 }
               }
@@ -1115,7 +1121,7 @@ function updateDataSeries(key) {
                   alert("Something went wrong try again");
                 } else {
                   if (thumbnailWebUpdate) {
-                    location.reload();
+                    $("#series-dialog-update").fadeOut();
                   }
                 }
               }
@@ -1126,7 +1132,7 @@ function updateDataSeries(key) {
   }
 
   if (!posterWebUpdate && !thumbnailWebUpdate) {
-    location.reload();
+    $("#series-dialog-update").fadeOut();
   }
 }
 
@@ -1150,6 +1156,8 @@ function selectedSeries() {
   loadSeries();
   $("#mo").addClass("tab");
   $("#mo").removeClass("tab-selected");
+  $("#on").addClass("tab");
+  $("#on").removeClass("tab-selected");
   $("#se").addClass("tab-selected");
 }
 function selectedMovie() {
@@ -1158,7 +1166,20 @@ function selectedMovie() {
   loadMovies();
   $("#se").addClass("tab");
   $("#se").removeClass("tab-selected");
+  $("#on").addClass("tab");
+  $("#on").removeClass("tab-selected");
   $("#mo").addClass("tab-selected");
+}
+
+function selectedOngoing() {
+  var mydiv = document.getElementById("movie-list");
+  mydiv.innerHTML = ``;
+  loadOngoing();
+  $("#se").addClass("tab");
+  $("#se").removeClass("tab-selected");
+  $("#mo").addClass("tab");
+  $("#mo").removeClass("tab-selected");
+  $("#on").addClass("tab-selected");
 }
 
 function loadMovies() {
@@ -1291,6 +1312,7 @@ function loadSeries() {
       var trailer = childSnapshot.val().trailer_url;
       var imdb = childSnapshot.val().imdb;
       var category = childSnapshot.val().category;
+      var status = childSnapshot.val().status;
 
       mydiv.innerHTML +=
         `
@@ -1320,6 +1342,8 @@ function loadSeries() {
       category +
       `\`,\`` +
       genre +
+      `\`,\`` +
+      status +
       `\`)" style="width: 100px; height: 160px;" class="anime-poster" src="${poster}" alt="" />
 
 
@@ -1387,6 +1411,131 @@ function loadSeries() {
   });
 }
 
+function loadOngoing() {
+  var mydiv = document.getElementById("movie-list");
+
+  var query = firebase.database().ref("Series");
+  query.on("value", function (snapshot) {
+    mydiv.innerHTML = ``;
+    snapshot.forEach(function (childSnapshot) {
+      var poster = childSnapshot.val().poster_url;
+      var key = childSnapshot.val().key;
+      var poster = childSnapshot.val().poster_url;
+      var thumbnail = childSnapshot.val().thumbnail_url;
+      var title = childSnapshot.val().title;
+      var cast = childSnapshot.val().cast;
+      var story = childSnapshot.val().story;
+      var genre = childSnapshot.val().genre;
+      var des = childSnapshot.val().description;
+      var language = childSnapshot.val().language;
+      var trailer = childSnapshot.val().trailer_url;
+      var imdb = childSnapshot.val().imdb;
+      var category = childSnapshot.val().category;
+      var status = childSnapshot.val().status;
+
+
+      if(status == "ongoing"){
+mydiv.innerHTML +=
+        `
+
+    <div  style="padding: 0px;" class="anime-card col-xl-3">
+      <img onClick="openSeries(\`` +
+      key +
+      `\`,\`` +
+      poster +
+      `\`,\`` +
+      thumbnail +
+      `\`,\`` +
+      title +
+      `\`,\`` +
+      des +
+      `\`,\`` +
+      story +
+      `\`,\`` +
+      cast +
+      `\`,\`` +
+      language +
+      `\`,\`` +
+      trailer +
+      `\`,\`` +
+      imdb +
+      `\`,\`` +
+      category +
+      `\`,\`` +
+      genre +
+      `\`,\`` +
+      status +
+      `\`)" style="width: 100px; height: 160px;" class="anime-poster" src="${poster}" alt="" />
+
+
+      <div class="list-categories">
+      <br>
+
+
+      <button onClick="addSeasons(\`` +
+        key +
+        `\`,\`` +
+        title +
+        `\`)" class="menu-drop">Add Seasons</button>
+
+        <button style="margin-top: 20px;" onClick="addOnTop(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        title +
+        `\`,\`` +
+        language +
+        `\`,\`` +
+        des +
+        `\`,\`` +
+        category +
+        `\`)" class="menu-drop">Add On Top</button>
+        <button style="margin-top: 20px;" onClick="addOnThumbOne(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        title +
+        `\`,\`` +
+        thumbnail +
+        `\`,\`` +
+        story +
+        `\`,\`` +
+        imdb +
+        `\`,\`` +
+        category +
+        `\`)" class="menu-drop">Add On Thum One</button>
+
+        <button style="margin-top: 20px;" onClick="addOnThumbTwo(\`` +
+        key +
+        `\`,\`` +
+        poster +
+        `\`,\`` +
+        title +
+        `\`,\`` +
+        thumbnail +
+        `\`,\`` +
+        story +
+        `\`,\`` +
+        imdb +
+        `\`,\`` +
+        category +
+        `\`)" class="menu-drop">Add On Thum Two</button>
+      <hr>
+    </div>
+    </div>
+
+
+       `;
+
+      }
+      
+    });
+  });
+}
+
+
 function addOnTop(key, poster, title, language, des, category) {
   var query = firebase.database().ref("Top");
   query.update({
@@ -1439,7 +1588,8 @@ function openSeries(
   trailer,
   imdb,
   category,
-  genre
+  genre,
+  status
 ) {
   localStorage.setItem("seriesKey", key);
   sKey = key;
@@ -1468,6 +1618,7 @@ function openSeries(
   document.getElementById("web-imdb-update").value = imdb;
   document.getElementById("web-genre-update").value = genre;
   document.getElementById("web-language-update").value = language;
+  document.getElementById("web-status-update").value = status;
   document.getElementById("trailer-url-update-web").value = trailer;
 }
 
@@ -2638,15 +2789,17 @@ loadUsers();
 loadPUsers();
 loadSeriesTo();
 loadMovie();
+loadEpisode()
 
 
 
 function loadUsers() {
-  var count = 0
+
   var mydiv = document.getElementById("total-users");
 
   var query = firebase.database().ref("Guest");
   query.on("value", function (snapshot) {
+    var count = 0
     mydiv.innerHTML = ``;
     snapshot.forEach(function (childSnapshot) {
      count++
@@ -2655,12 +2808,43 @@ function loadUsers() {
   });
 }
 
+function loadEpisode() {
+
+  var mydiv = document.getElementById("ep");
+
+  var query = firebase.database().ref("Series");
+  query.on("value", function (snapshot) {
+    var count = 0
+    snapshot.forEach(function (childSnapshot) {
+      var sskey = childSnapshot.val().key
+     query.child(sskey+"/seasons").on("value", function (snapshot) {
+  
+      snapshot.forEach(function (childSnapshot) {
+
+      var sKKey = childSnapshot.val().key
+        query.child(sskey+"/seasons/"+sKKey+"/episodes").on("value", function (snapshot) {
+
+          snapshot.forEach(function (childSnapshot) {
+    
+            count++
+            mydiv.innerHTML = "EP - "+ count
+      
+    
+          });
+        });
+      });
+    });
+    });
+  });
+}
+
 function loadPUsers() {
-  var count = 0
+
   var mydiv = document.getElementById("premium-users");
 
   var query = firebase.database().ref("Guest");
   query.on("value", function (snapshot) {
+    var count = 0
     mydiv.innerHTML = ``;
     snapshot.forEach(function (childSnapshot) {
 
@@ -2675,11 +2859,12 @@ function loadPUsers() {
 }
 
 function loadSeriesTo() {
-  var count = 0
+
   var mydiv = document.getElementById("total-series");
 
   var query = firebase.database().ref("Series");
   query.on("value", function (snapshot) {
+    var count = 0
     mydiv.innerHTML = ``;
     snapshot.forEach(function (childSnapshot) {
      count++
@@ -2689,11 +2874,12 @@ function loadSeriesTo() {
 }
 
 function loadMovie() {
-  var count = 0
+
   var mydiv = document.getElementById("total-movies");
 
   var query = firebase.database().ref("Movies");
   query.on("value", function (snapshot) {
+    var count = 0
     mydiv.innerHTML = ``;
     snapshot.forEach(function (childSnapshot) {
      count++
@@ -2880,3 +3066,27 @@ function removeTopMovieAnime(key, poster, new_key) {
   query.remove();
 }
 
+
+// sendData()
+
+
+// function sendData(){
+//   var query = firebase.database().ref("Series");
+//   query.once("value", function (snapshot) {
+//     var count = 0
+//     snapshot.forEach(function (childSnapshot) {
+//       var sskey = childSnapshot.val().key
+//       firebase
+//       .database()
+//       .ref("Series/" +sskey )
+//       .update(
+//         {
+//           status: "completed",
+  
+//         },
+      
+//       );
+     
+//     });
+//   });
+// }
