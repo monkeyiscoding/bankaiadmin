@@ -131,7 +131,7 @@
               >
             </div>
 
-            <div id="movie-list" class="all-anime-list row"></div>
+            <div id="movie-list" style="height: 100vh; margin: 20px 20px 100px 20px; overflow-y: scroll; padding-bottom: 500px;" class="all-anime-list row"></div>
           </div>
 
           <div class="analyz">
@@ -1005,7 +1005,7 @@
         </div>
         <h2 style="padding-top: 50px">Top Treanding Anime</h2>
         <div
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           class="row"
           id="top-treanding-div"
         ></div>
@@ -1031,7 +1031,7 @@
         <input class="serach-bar" type="text" placeholder="Search Anime" />
         <div
           class="row"
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           id="add-top-treanding-div-all-anime"
         ></div>
         <button
@@ -1052,7 +1052,7 @@
         </div>
         <h2 style="padding-top: 50px">Hindi Anime</h2>
         <div
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           class="row"
           id="hindi-anime-div"
         ></div>
@@ -1082,7 +1082,7 @@
         />
         <div
           class="row"
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           id="add-hindi-anime-div-all-anime"
         ></div>
         <button
@@ -1103,7 +1103,7 @@
         </div>
         <h2 style="padding-top: 50px">New Added Anime</h2>
         <div
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           class="row"
           id="new-added-anime-div"
         ></div>
@@ -1133,7 +1133,7 @@
         />
         <div
           class="row"
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           id="add-new-added-anime-div-all-anime"
         ></div>
         <button
@@ -1154,7 +1154,7 @@
         </div>
         <h2 style="padding-top: 50px">Action Adventure Anime</h2>
         <div
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           class="row"
           id="action-anime-div"
         ></div>
@@ -1186,7 +1186,7 @@
         />
         <div
           class="row"
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           id="add-action-anime-div-all-anime"
         ></div>
         <button
@@ -1207,7 +1207,7 @@
         </div>
         <h2 style="padding-top: 50px">Action Ecchi Anime</h2>
         <div
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           class="row"
           id="ecchi-anime-div"
         ></div>
@@ -1224,7 +1224,7 @@
     </div>
 
     <div id="add-ecchi-anime-dialog" class="dialog">
-      <div class="add-movie-div top-treanding">
+      <div style="display: block;" class="add-movie-div top-treanding">
         <div onclick="closeEcchiAdded()" class="close-dialog">
           <i style="color: black; margin-top: 20px" data-feather="x"></i>
         </div>
@@ -1235,11 +1235,12 @@
           type="text"
           placeholder="Search Anime Ecchi"
         />
-        <div
+        <p><div
           class="row"
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           id="add-ecchi-anime-div-all-anime"
-        ></div>
+        ></div></p>
+        
         <button
           style="width: 40%; margin: 0px 30% 50px 30%; margin-bottom: 30px"
           onclick="resetAddEcchi()"
@@ -1260,7 +1261,7 @@
         </div>
         <h2 style="padding-top: 50px">Action Top Movie Anime</h2>
         <div
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           class="row"
           id="movie-anime-div"
         ></div>
@@ -1290,7 +1291,7 @@
         />
         <div
           class="row"
-          style="height: 500px; margin: 50px"
+          style="height: 500px; margin: 50px; overflow-y: scroll;"
           id="add-movie-anime-div-all-anime"
         ></div>
         <button

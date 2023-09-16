@@ -24,7 +24,7 @@ function checkLogin (){
     window.location.href = "Login.html";
   }
 }
-
+document.body.style.overflow = 'hidden';
 
 loginAccess();
 
@@ -2288,8 +2288,11 @@ function loadSearchAnime(x) {
       var poster = childSnapshot.val().poster_url;
       var key = childSnapshot.val().key;
       var title = childSnapshot.val().title;
+      var genre = childSnapshot.val().genre;
+      var cast = childSnapshot.val().cast;
 
-      var newT = title.toLowerCase();
+
+      var newT = title.toLowerCase() + genre.toLowerCase() +cast.toLowerCase() ;
       var newX = x.toLowerCase();
 
       if (newT.includes(newX)) {
