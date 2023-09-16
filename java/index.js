@@ -24,7 +24,6 @@ function checkLogin (){
     window.location.href = "Login.html";
   }
 }
-document.body.style.overflow = 'hidden';
 
 loginAccess();
 
