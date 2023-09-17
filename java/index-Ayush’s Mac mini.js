@@ -2266,7 +2266,6 @@ function loadAllAnime() {
       var language = childSnapshot.val().language;
       var story = childSnapshot.val().story;
       var imdb = childSnapshot.val().imdb;
-      var title = childSnapshot.val().title;
 
       mydiv.innerHTML +=
         `
@@ -2284,14 +2283,6 @@ function loadAllAnime() {
         poster +
         `\`,\`` +
         category +
-        `\`,\`` +
-        story+
-        `\`,\`` +
-        language+
-        `\`,\`` +
-        imdb+
-        `\`,\`` +
-        title+
         `\`)" class="menu-drop">Add</button>
       <hr>
     </div>
@@ -2363,7 +2354,7 @@ function loadSearchAnime(x) {
   });
 }
 
-function addNewAnime(key, poster, category, story, language,imdb, title) {
+function addNewAnime(key, poster, category) {
   var new_key = firebase.database().ref("top_treandings").push().key;
   var query = firebase.database().ref("top_treandings/" + new_key);
 
@@ -2372,10 +2363,6 @@ function addNewAnime(key, poster, category, story, language,imdb, title) {
     poster_url: poster,
     new_key: new_key,
     category: category,
-    language: language,
-    imdb: imdb,
-    story: story,
-    title:title,
   });
 }
 
