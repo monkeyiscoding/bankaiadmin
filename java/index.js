@@ -2216,6 +2216,13 @@ $(".serach-bar-ecchi").on("keyup", function (e) {
     loadSearchAnime(x);
   }
 });
+$(".serach-bar-movie").on("keyup", function (e) {
+  if (e.key === "Enter" || e.keyCode === 13) {
+    var x = $(".serach-bar-movie").val();
+
+    loadSearchAnime(x);
+  }
+});
 function loadTopTreandingAnime() {
   var mydiv = document.getElementById("top-treanding-div");
   mydiv.innerHTML = ``;
@@ -2262,10 +2269,7 @@ function loadAllAnime() {
     snapshot.forEach(function (childSnapshot) {
       var poster = childSnapshot.val().poster_url;
       var key = childSnapshot.val().key;
-      var category = childSnapshot.val().category;
       var language = childSnapshot.val().language;
-      var story = childSnapshot.val().story;
-      var imdb = childSnapshot.val().imdb;
       var title = childSnapshot.val().title;
 
       mydiv.innerHTML +=
@@ -2283,13 +2287,7 @@ function loadAllAnime() {
         `\`,\`` +
         poster +
         `\`,\`` +
-        category +
-        `\`,\`` +
-        story+
-        `\`,\`` +
         language+
-        `\`,\`` +
-        imdb+
         `\`,\`` +
         title+
         `\`)" class="menu-drop">Add</button>
@@ -2305,22 +2303,32 @@ function loadAllAnime() {
 
 function loadSearchAnime(x) {
   var mydiv = document.getElementById("add-top-treanding-div-all-anime");
+  var data = "top_treandings"
 
   if (currentOpe == "hindi") {
     mydiv = document.getElementById("add-hindi-anime-div-all-anime");
+    data = "Hindi"
   }
 
   if (currentOpe == "new_added") {
     mydiv = document.getElementById("add-new-added-anime-div-all-anime");
+    data = "new_added"
   }
 
   if (currentOpe == "action") {
     mydiv = document.getElementById("add-action-anime-div-all-anime");
+    data = "action"
   }
 
   if (currentOpe == "ecchi") {
     mydiv = document.getElementById("add-ecchi-anime-div-all-anime");
+    data = "Ecchi"
   }
+  if (currentOpe == "Movie") {
+    mydiv = document.getElementById("add-movie-anime-div-all-anime");
+    data = "top_movies"
+  }
+
 
   mydiv.innerHTML = ``;
   var query = firebase.database().ref("All_Anime");
@@ -2331,6 +2339,9 @@ function loadSearchAnime(x) {
       var title = childSnapshot.val().title;
       var genre = childSnapshot.val().genre;
       var cast = childSnapshot.val().cast;
+      var language = childSnapshot.val().language;
+      var title = childSnapshot.val().title;
+      var category = childSnapshot.val().category;
 
 
       var newT = title.toLowerCase() + genre.toLowerCase() +cast.toLowerCase() ;
@@ -2351,6 +2362,14 @@ function loadSearchAnime(x) {
           key +
           `\`,\`` +
           poster +
+          `\`,\`` +
+          language +
+          `\`,\`` +
+          title +
+          `\`,\`` +
+          category +
+          `\`,\`` +
+          data +
           `\`)" class="menu-drop">Add</button>
       <hr>
     </div>
@@ -2363,19 +2382,17 @@ function loadSearchAnime(x) {
   });
 }
 
-function addNewAnime(key, poster, category, story, language,imdb, title) {
-  var new_key = firebase.database().ref("top_treandings").push().key;
-  var query = firebase.database().ref("top_treandings/" + new_key);
+function addNewAnime(key, poster, language, title,category, data) {
+  var new_key = firebase.database().ref("All_anime").push().key;
+  var query = firebase.database().ref(data+"/" + new_key);
 
   query.update({
     key: key,
     poster_url: poster,
     new_key: new_key,
-    category: category,
     language: language,
-    imdb: imdb,
-    story: story,
-    title:title,
+    title: title,
+    category:category,
   });
 }
 
@@ -3048,7 +3065,7 @@ function search(x) {
 function openTopMovie() {
   $("#movie-anime-dialog").fadeIn();
   loadTopMovieAnime();
-  currentOpe = "action";
+  currentOpe = "Movie";
 }
 
 function addTopMovie() {
