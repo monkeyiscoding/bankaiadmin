@@ -789,7 +789,7 @@
           >
             No seasons added yet
           </h3>
-          <div id="seasons-list"></div>
+          <div id="seasons-list" style="overflow-y: scroll; height: 500px;"></div>
         </div>
         <div style="margin-left: 30px; width: 100%">
           <div onclick="closeSeasonsDialog()" class="close-dialog">
@@ -809,7 +809,7 @@
           <br />
           <br />
           <h5>All Episodes</h5>
-          <div id="episodes-list" style="height:800px; overflow-y: scroll;" class="episodes-list row"></div>
+          <div id="episodes-list" style="height:700px; overflow-y: scroll;" class="episodes-list row"></div>
         </div>
       </div>
     </div>
@@ -1207,7 +1207,7 @@
         </div>
         <h2 style="padding-top: 50px">Action Ecchi Anime</h2>
         <div
-          style="height: 500px; margin: 50px; overflow-y: scroll;"
+        style="height: 500px !important; margin: 50px; overflow-y: auto;"
           class="row"
           id="ecchi-anime-div"
         ></div>
@@ -1237,7 +1237,7 @@
         />
         <p><div
           class="row"
-          style="height: 500px; margin: 50px; overflow-y: scroll;"
+          style="height: 500px !important; margin: 50px; overflow-y: auto;"
           id="add-ecchi-anime-div-all-anime"
         ></div></p>
         
@@ -1315,7 +1315,8 @@
     </div>
     </div>
 
-
+<!-- The actual snackbar -->
+<div id="snackbar">Some text some message..</div>
 
    
 

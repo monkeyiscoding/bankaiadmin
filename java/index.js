@@ -1953,7 +1953,7 @@ function showEpisodes() {
             <div
             
             class="anime-card"
-            style="text-align: center; padding-top: 50px;  justify-content: center; align-items: center;"
+            style="text-align: center; padding-top: 50px;  justify-content: center; align-items: center; margin-top: 10px;"
           >
 
             <h4 onClick="updateEpisodeDialog(
@@ -2269,30 +2269,33 @@ function loadAllAnime() {
     snapshot.forEach(function (childSnapshot) {
       var poster = childSnapshot.val().poster_url;
       var key = childSnapshot.val().key;
+      var title = childSnapshot.val().title;
+      var genre = childSnapshot.val().genre;
+      var cast = childSnapshot.val().cast;
       var language = childSnapshot.val().language;
       var title = childSnapshot.val().title;
+      var category = childSnapshot.val().category;
+      var thumbnail = childSnapshot.val().thumbnail_url;
 
       mydiv.innerHTML +=
         `
 
-    <div  style="padding: 0px;" class="anime-card col-xl-3">
+    <div  onClick="addNewTopTreandingAnime(\`` +
+    key +
+    `\`,\`` +
+    poster +
+    `\`,\`` +
+    language+
+    `\`,\`` +
+    title+
+    `\`,\`` +
+    category+
+    `\`,\`` +
+    thumbnail+
+    `\`)"  style="padding: 0px;" class="anime-card col-xl-3">
       <img class="anime-poster" src="${poster}" alt="" />
 
-      <div class="list-categories">
-      <br>
-
-
-      <button onClick="addNewAnime(\`` +
-        key +
-        `\`,\`` +
-        poster +
-        `\`,\`` +
-        language+
-        `\`,\`` +
-        title+
-        `\`)" class="menu-drop">Add</button>
-      <hr>
-    </div>
+    
     </div>
 
 
@@ -2342,6 +2345,7 @@ function loadSearchAnime(x) {
       var language = childSnapshot.val().language;
       var title = childSnapshot.val().title;
       var category = childSnapshot.val().category;
+      var thumbnail = childSnapshot.val().thumbnail_url;
 
 
       var newT = title.toLowerCase() + genre.toLowerCase() +cast.toLowerCase() ;
@@ -2370,6 +2374,8 @@ function loadSearchAnime(x) {
           category +
           `\`,\`` +
           data +
+          `\`,\`` +
+          thumbnail +
           `\`)" class="menu-drop">Add</button>
       <hr>
     </div>
@@ -2382,7 +2388,7 @@ function loadSearchAnime(x) {
   });
 }
 
-function addNewAnime(key, poster, language, title,category, data) {
+function addNewAnime(key, poster, language, title,category, data,thumbnail) {
   var new_key = firebase.database().ref("All_anime").push().key;
   var query = firebase.database().ref(data+"/" + new_key);
 
@@ -2393,6 +2399,22 @@ function addNewAnime(key, poster, language, title,category, data) {
     language: language,
     title: title,
     category:category,
+    thumbnail_url:thumbnail,
+  });
+}
+
+function addNewTopTreandingAnime(key, poster, language, title,category, thumbnail) {
+  var new_key = firebase.database().ref("All_anime").push().key;
+  var query = firebase.database().ref("top_treandings/" + new_key);
+
+  query.update({
+    key: key,
+    poster_url: poster,
+    new_key: new_key,
+    language: language,
+    title: title,
+    category:category,
+    thumbnail_url:thumbnail,
   });
 }
 
@@ -2432,24 +2454,18 @@ function loadAllAnimeHindi() {
         mydiv.innerHTML +=
           `
 
-    <div  style="padding: 0px;" class="anime-card col-xl-3">
+    <div  onClick="addNewHindiAnime(\`` +
+    key +
+    `\`,\`` +
+    poster +
+    `\`,\`` +
+    thumbnail +
+    `\`,\`` +
+    category +
+    `\`)"  style="padding: 0px;" class="anime-card col-xl-3">
       <img class="anime-poster" src="${poster}" alt="" />
 
-      <div class="list-categories">
-      <br>
 
-
-      <button onClick="addNewHindiAnime(\`` +
-          key +
-          `\`,\`` +
-          poster +
-          `\`,\`` +
-          thumbnail +
-          `\`,\`` +
-          category +
-          `\`)" class="menu-drop">Add</button>
-      <hr>
-    </div>
     </div>
 
 
@@ -2556,24 +2572,16 @@ function loadAllNewAddedAnime() {
       mydiv.innerHTML +=
         `
 
-    <div  style="padding: 0px;" class="anime-card col-xl-3">
+    <div onClick="addNewAddedAnime(\`` +
+    key +
+    `\`,\`` +
+    poster +
+    `\`,\`` +
+    thumbnail +
+    `\`,\`` +
+    category +
+    `\`)"  style="padding: 0px;" class="anime-card col-xl-3">
       <img class="anime-poster" src="${poster}" alt="" />
-
-      <div class="list-categories">
-      <br>
-
-
-      <button onClick="addNewAddedAnime(\`` +
-        key +
-        `\`,\`` +
-        poster +
-        `\`,\`` +
-        thumbnail +
-        `\`,\`` +
-        category +
-        `\`)" class="menu-drop">Add</button>
-      <hr>
-    </div>
     </div>
 
 
@@ -2795,6 +2803,7 @@ function loadAllEcchiAnime() {
   query.once("value", function (snapshot) {
     snapshot.forEach(function (childSnapshot) {
       var poster = childSnapshot.val().poster_url;
+      var title = childSnapshot.val().title;
       var key = childSnapshot.val().key;
       var language = childSnapshot.val().language;
       var thumbnail = childSnapshot.val().thumbnail_url;
@@ -2804,22 +2813,18 @@ function loadAllEcchiAnime() {
            mydiv.innerHTML +=
         `
 
-    <div  style="padding: 0px;" class="anime-card col-xl-3">
-      <img class="anime-poster" src="${poster}" alt="" />
-
-      <div class="list-categories">
-      <br>
-
-
-      <button onClick="addEcchiAnime(\`` +
-        key +
-        `\`,\`` +
-        poster +
-        `\`,\`` +
-        thumbnail +
-        `\`,\`` +
-        category +
-        `\`)" class="menu-drop">Add</button>
+    <div onClick="addEcchiAnime(\`` +
+    key +
+    `\`,\`` +
+    poster +
+    `\`,\`` +
+    thumbnail +
+    `\`,\`` +
+    category +
+    `\`,\`` +
+    title +
+    `\`)"   style="padding: 0px;" class="anime-card col-xl-3">
+      <img  class="anime-poster" src="${poster}" alt="" />
       <hr>
     </div>
     </div>
@@ -2830,6 +2835,11 @@ function loadAllEcchiAnime() {
    
     });
   });
+}
+
+
+function go(title){
+     alert(title)
 }
 
 function loadEcchiAnime() {
@@ -2870,7 +2880,7 @@ function loadEcchiAnime() {
   });
 }
 
-function addEcchiAnime(key, poster, thumbnail, category) {
+function addEcchiAnime(key, poster, thumbnail, category, title) {
   var new_key = firebase.database().ref("Ecchi").push().key;
   var query = firebase.database().ref("Ecchi/" + new_key);
 
@@ -2881,6 +2891,8 @@ function addEcchiAnime(key, poster, thumbnail, category) {
     new_key: new_key,
     category: category,
   });
+
+  showToast(title+" Added to Echhi")
 }
 
 function closeEcchi() {
@@ -3189,7 +3201,6 @@ function removeTopMovieAnime(key, poster, new_key) {
 
 // sendData()
 
-
 // function sendData(){
 //   var query = firebase.database().ref("Series");
 //   query.once("value", function (snapshot) {
@@ -3202,7 +3213,7 @@ function removeTopMovieAnime(key, poster, new_key) {
 //       .update(
 //         {
 //           status: "completed",
-  
+
 //         },
       
 //       );
@@ -3210,3 +3221,18 @@ function removeTopMovieAnime(key, poster, new_key) {
 //     });
 //   });
 // }
+
+
+
+
+function showToast(title) {
+  // Get the snackbar DIV
+  var x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+  x.innerHTML = title
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
